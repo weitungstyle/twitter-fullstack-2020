@@ -2,4 +2,4 @@
 const { authenticated } = require('../middleware/auth')
 
 
-// 要在 router.get頁面  新增 authenticated (使用者認證)
+// 要在 router 部分裡面  新增 authenticated (使用者認證)
