@@ -7,7 +7,7 @@
     "start": "node app.js",
     "dev": "nodemon app.js",
     "lint": "eslint \"**/*.js\" --fix",
-    "test": "mocha tests --exit --recursive --timeout 1000000000"
+    "test": "mocha tests --exit --recursive --timeout 5000"
   },
   "author": "",
   "license": "ISC",
