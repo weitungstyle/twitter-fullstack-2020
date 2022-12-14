@@ -1,5 +1,3 @@
-// 載入使用者認證 middleware/auth.js
-const { authenticated } = require('../middleware/auth')
 //error handleler
 const { generalErrorHandler } = require('../middleware/error-handler')
 
