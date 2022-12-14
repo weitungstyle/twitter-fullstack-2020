@@ -1,0 +1,18 @@
+<img src="{{tweet.user.avatar}}" alt="{{tweet.user.name}}" />
+<p>{{tweet.user.name}}</p>
+<p>{{tweet.user.account}}</p>
+
+<h1>{{tweet.description}}</h1>
+<p>{{tweet.createdAt}}</p>
+<p>{{tweet.reply}}</p>
+<p>{{tweet.like}}</p>
+
+{{#if reply}}
+  <img src="{{reply.user.avatar}}" alt="{{reply.user.name}}" />
+  <p>{{reply.user.name}}</p>
+  <p>{{reply.user.account}}</p>
+  <p>{{reply.createdAt}}</p>
+
+  <p>回覆{{tweet.user.account}}</p>
+  <h1>{{reply.comment}}</h1>
+{{/if}}

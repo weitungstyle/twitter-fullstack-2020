@@ -6,13 +6,15 @@ const { authenticated } = require('../middleware/auth')
 const express = require('express')
 const router = express.Router()
 const userController = require('../controller/user-controller')
-
+const tweetController = require('../controller/tweet-controller')
 
 //signin
 router.get('/signin', userController.signInPage)
 
 //user page
-router.get('users/:id', userController.getUserPage)
+router.get('/users/:id', userController.getUserPage)
+
+router.get('/tweets/:id', tweetController.getTweet)
 
 //fallback
 router.get('/', (req, res) => { res.redirect('/signin') })

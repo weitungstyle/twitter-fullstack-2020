@@ -1,3 +1,4 @@
+const path = require('path')
 const express = require('express')
 const helpers = require('./_helpers')
 const handlebars = require('express-handlebars')
@@ -11,7 +12,9 @@ const port = 3000
 app.engine('hbs', handlebars({ defaultLayout: 'main', extname: 'hbs' }))
 app.set('view engine', 'hbs')
 app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 app.use(express.static('public'))
+
 
 app.use(routes)
 
