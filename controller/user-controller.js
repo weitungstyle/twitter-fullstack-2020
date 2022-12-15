@@ -6,7 +6,7 @@ const userController = {
     res.render('signin')
   },
   //帳號密碼核對會在passport
-  signIn: (req, res, next) => {
+  signIn: (req, res) => {
     req.flash('success_messages', '成功登入！')
     res.redirect('/tweets')
   },
@@ -15,51 +15,17 @@ const userController = {
   },
   signUp: (req, res, next) => {
     const { account, name, email, password, checkPassword } = req.body
-    const errors = []
-    if (password !== checkPassword) errors.push({ message: '密碼不相符!ヽ(#`Д´)ﾉ' })
-    if (name.length > 50) errors.push({ message: '字數超出上限ヽ(#`Д´)ﾉ' })
-    if (errors.length) {
-      return res.render('signup', { errors, account, name, email, password })
-    }
-    User.findOne({ where: { email } })
-      // .then(user => {
-      //   if (user) {
-      //     req.flash('warning_msg', 'email已被註冊 ヽ(#`Д´)ﾉ')
-      //     return res.render('signup', { account, name, email, password })
-      //   }
-      //   return bcrypt
-      //     .genSalt(10)
-      //     .then(salt => bcrypt.hash(password, salt))
-      //     .then(hash => User.create({
-      //       name, email, password: hash
-      //     }))
-      //     .then(() => res.redirect('/signin'))
-      //     .catch(err => console.log(err))
-      // })
-
-      .then(user => {
-        const error2 = []
-        // if (user) {
-        //   req.flash('error_messages', 'email已被註冊 ヽ(#`Д´)ﾉ')
-        //   return res.render('signup', { errors, account, name, email, password })
-        // }
-        // if (user.email) throw new Error('no')
-        // // if (user) errors.push({ message: 'Email不可重複!ヽ(#`Д´)ﾉ' })
-        // if (user.account) errors.push({ message: '帳號名稱不可重複!ヽ(#`Д´)ﾉ' })
-        // return bcrypt.hash(password, 10)
-        // if (user.email) {
-        //   req.flash('error_messages', 'email已被註冊 ヽ(#`Д´)ﾉ')
-        //   return res.render('signup', { errors, account, name, email, password })
-        // }
-        // if (user.account) req.flash('error_messages', 'noヽ(#`Д´)ﾉ')
-        if (user) {
-          if (user.email) error2.push({ message: 'Email不可重複!ヽ(#`Д´)ﾉ' })
-          if (user.account) error2.push({ message: 'email已被註冊(#`Д´)ﾉ' })
-          if (errors.length) {
-            return res.render('signup', { error2, account, name, email, password })
-          }
-        }
-
+    // 使用req.flash會跳回signin
+    // if (password !== checkPassword) req.flash('error_messages', '密碼不相符!ヽ(#`Д´)ﾉ')
+    // if (name.length > 50) req.flash('error_messages', '字數超出上限ヽ(#`Д´)ﾉ')
+    if (password !== checkPassword) throw new Error('密碼不相符!ヽ(#`Д´)ﾉ')
+    if (name.length > 50) throw new Error('字數超出上限ヽ(#`Д´)ﾉ')
+    //const { Op } = require('sequelize')
+    //使用sequelize operator or，來選擇搜尋兩樣東西，我應該有成功?
+    return Promise.all([User.findOne({ where: { email } }), User.findOne({ where: { account } })])
+      .then(([email, account]) => {
+        if (email) throw new Error('Email already exists!')
+        if (account) throw new Error('account already exists!')
         return bcrypt.hash(password, 10)
       })
       .then(hash => {
@@ -68,7 +34,7 @@ const userController = {
         })
       })
       .then(() => {
-        req.flash('帳號註冊成功!')
+        req.flash('success_messages', '帳號註冊成功!')
         res.redirect('/signin')
       })
       .catch(err => next(err))
@@ -78,9 +44,10 @@ const userController = {
     req.logout()
     res.redirect('/signin')
   },
-  getTweets: (req, res) => {
-    res.render('following')
-  }
+  //我用來測試畫面的
+  // getTweets: (req, res) => {
+  //   res.render('followings')
+  // }
 }
 
 

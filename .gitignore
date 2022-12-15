@@ -90,3 +90,8 @@ package.json
 package-lock.json
 
 text.txt
+tweets.hbs
+following.hbs
+followings.hbs
+tweet.hbs
+tweets.hbs

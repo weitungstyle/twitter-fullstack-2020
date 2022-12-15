@@ -2,6 +2,7 @@
   <div class="first-con">
     <img src="/images/icon/Icon.png" alt="main-icon">
     <div>
+      {{> message}}
       <h1 id="title">登入 Alphitter</h1>
       <form class="form-signin" action="/signin" method="POST">
         <div>
@@ -10,7 +11,7 @@
         </div>
         <div>
           <label for="password">密碼</label>
-          <input type="text" name="password" id="password" placeholder="請輸入密碼" aria-label="User password" required>
+          <input type="password" name="password" id="password" placeholder="請輸入密碼" aria-label="User password" required>
         </div>
         <button id="button" type="submit">登入</button>
       </form>
