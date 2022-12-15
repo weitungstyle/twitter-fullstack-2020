@@ -2,7 +2,7 @@
 
 
 
-/* .first-con {
+.first-con {
   margin-top: 69px;
   width: 440px;
   text-align: center;
@@ -83,21 +83,7 @@ input:hover {
   width: 80px;
   height: 40px;
   border: none;
-} */
-
-
-
-/* input {
-  border: none;
-  background-color: #F5F8FA;
-  border-bottom: 2px solid #657786;
-  font-size: 16px;
-  padding: 5px;
-}
-
-input:hover {
-  border-bottom: 2px solid #50B5FF;
-} */
+} 
 
 #top-tweet-box {
   width: 641px;
