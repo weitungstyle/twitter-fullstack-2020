@@ -1,0 +1,25 @@
+{{!-- 首頁上方推文框 --}}
+<div class="d-flex">
+
+  {{!-- {{> modals}} --}}
+  {{>left-home-page}}
+  <div class="col-6 " id= "top-tweet-box">
+    <div class="card">
+      <div class="card-title" id="home-header">首頁</div>
+      <div class="cards-home opacity-100" style="background-color:white;border-bottom: 18px solid #E6ECF0;">
+        <div class="post-tweet" style="width:634px;height:153px;border-top: 1px solid	#E6ECF0;" data-bs-toggle="modal"
+          data-bs-target="#tweet-modal">
+          <div class="card-image m-3">
+            <img src="/images/icon/User Photo.png" class="user-photo" class="user-avatar"
+              style="width:50px;height:50px;border-radius:50%;">
+            <span style="color:#6C757D;font-size: 18px;margin:8px;font-family: 'Noto Sans TC'">有什麼新鮮事？</span>
+          </div>
+          <div class="d-flex justify-content-end m-2">
+            <button type="submit" class="btn btn-primary"
+              style="color: white;font-size: 16px;background-color:#ff6600;border: 1px solid #FF6600;border-radius:20px; width:96px;height:40px;margin-left:30px;font-family: 'Noto Sans TC'">推文</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

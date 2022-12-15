@@ -1,7 +1,7 @@
 // 載入使用者認證 middleware/auth.js
-const { authenticated } = require('../middleware/auth')
+// const { authenticated } = require('../middleware/auth')
 //error handleler
-const { generalErrorHandler } = require('../middleware/error-handler')
+// const { generalErrorHandler } = require('../middleware/error-handler')
 
 
 // 要在 router 部分裡面  新增 authenticated (使用者認證)
@@ -20,11 +20,11 @@ router.get('/signin', userController.signInPage)
 
 
 // Tweets
-router.post('/tweets', authenticated, tweetController.postTweet)
-
+// router.post('/tweets', authenticated, tweetController.postTweet)
+router.get('/tweets', tweetController.getTweet)
 
 //fallback
-router.get('/', (req, res) => { res.redirect('/signin') })
-
-router.use('/', generalErrorHandler)
+// router.get('/', (req, res) => { res.redirect('/signin') })
+router.use('/', (req, res) => res.redirect('/tweets'))
+// router.use('/', generalErrorHandler)
 module.exports = router

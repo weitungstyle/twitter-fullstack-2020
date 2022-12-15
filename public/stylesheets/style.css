@@ -1,72 +1,150 @@
 @import url(//fonts.googleapis.com/earlyaccess/notosanstc.css);
 
-.first-con{
-margin-top:69px;
-width:440px;
-text-align:center;
+
+
+/* .first-con {
+  margin-top: 69px;
+  width: 440px;
+  text-align: center;
 }
 
-first-con img{
-display:block; 
-margin:auto;
+first-con img {
+  display: block;
+  margin: auto;
 }
 
 #title {
-margin:40px;
-font-weight:700;
-font-size:28px;
-font-family:"Noto Sans TC";
+  margin: 40px;
+  font-weight: 700;
+  font-size: 28px;
+  font-family: "Noto Sans TC";
 }
 
 form div {
-text-align: start;
-background-color:#F5F8FA;
-margin:40px 50px;
-width:356px;
-display: flex;
-flex-direction: column;
-font-family:"Noto Sans TC";
-height:54px;
+  text-align: start;
+  background-color: #F5F8FA;
+  margin: 40px 50px;
+  width: 356px;
+  display: flex;
+  flex-direction: column;
+  font-family: "Noto Sans TC";
+  height: 54px;
 }
 
-label{
-font-size: 14px;
-padding:5px;
+label {
+  font-size: 14px;
+  padding: 5px;
 }
 
-::placeholder{
-color:#B5B5BE;
-font-size:16px;
+::placeholder {
+  color: #B5B5BE;
+  font-size: 16px;
 }
 
-input{
-border:none;
-background-color:#F5F8FA;
-border-bottom: 2px solid #657786;
-font-size:16px;
-padding:5px;
+input {
+  border: none;
+  background-color: #F5F8FA;
+  border-bottom: 2px solid #657786;
+  font-size: 16px;
+  padding: 5px;
 }
 
-input:hover{
+input:hover {
   border-bottom: 2px solid #50B5FF;
 }
 
-#button{
-border-radius:50px; 
-border:none;
-background-color:#FF6600;
-color:white;
-width:356px;
-height: 46px;
-font-size:20px;
+#button {
+  border-radius: 50px;
+  border: none;
+  background-color: #FF6600;
+  color: white;
+  width: 356px;
+  height: 46px;
+  font-size: 20px;
 }
 
-.register{
-font-family:"Noto Sans TC";
-margin:8px;
-padding:12px 22px 0 0;
-font-size:16px;
+.register {
+  font-family: "Noto Sans TC";
+  margin: 8px;
+  padding: 12px 22px 0 0;
+  font-size: 16px;
 }
-.register span{
-margin: 10px;
+
+.register span {
+  margin: 10px;
+}
+
+#tweet-button {
+  position: absolute;
+  bottom: 16px;
+  right: 25px;
+  color: #FFFFFF;
+  background: #FF6600;
+  width: 80px;
+  height: 40px;
+  border: none;
+} */
+
+
+
+/* input {
+  border: none;
+  background-color: #F5F8FA;
+  border-bottom: 2px solid #657786;
+  font-size: 16px;
+  padding: 5px;
+}
+
+input:hover {
+  border-bottom: 2px solid #50B5FF;
+} */
+
+#top-tweet-box {
+  width: 641px;
+  height: 1px;
+  left: 973px;
+  top: 75px;
+}
+
+#home-header {
+  margin-top: 25px;
+  margin-left: 0px;
+  padding-bottom: 10px;
+  padding-left: 25px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 20px;
+  color: #171725;
+}
+
+.post-tweet {
+  height: 130px;
+}
+
+#placeholder {
+  position: absolute;
+  top: 15px;
+  left: 83px;
+}
+
+#left-tweet-button {
+  font-family: "Noto Sans TC";
+  width: 40px;
+  height: 30px;
+  border: none;
+  width: 80px;
+  height: 40px;
+  color: #FFFFFF;
+  background: #FF6600;
+  border-radius: 50px;
+}
+
+#left-home-page {
+  top: 50px;
+  background: #FFFFFF;
+}
+
+#left-home {
+  font-family: "Noto Sans TC";
 }
