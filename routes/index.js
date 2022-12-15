@@ -1,11 +1,8 @@
-// 要在 router 部分裡面  新增 authenticated (使用者認證)
 const express = require('express')
 const router = express.Router()
 const passport = require('../config/passport')
+const admin = require('./modules/admin')
 
-// 載入使用者認證 middleware/auth.js
-// const { authenticated } = require('../middleware/auth')
-const { generalErrorHandler } = require('../middleware/error-handler')
 // 載入controller
 const userController = require('../controller/user-controller')
 const tweetController = require('../controller/tweet-controller')
@@ -38,6 +35,7 @@ router.post('/signup', userController.signUp)
 
 //tweets
 // router.get('/tweets', userController.getTweets)
+router.get('/tweets', authenticated, tweetController.getTweet)
 router.post('/tweets', tweetController.postTweet)
 
 // //fallback
