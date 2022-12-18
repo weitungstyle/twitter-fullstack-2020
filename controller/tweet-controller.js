@@ -28,7 +28,7 @@ const tweetController = {
   },
   getTweet: (req, res) => {
     console.log(tweet)
-    res.render('tweet', { tweet: tweet[0] })
+    res.render('tweets', { tweet: tweet[0] })
   }
 }
 

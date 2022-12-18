@@ -1,1 +1,32 @@
-<h1>後台首頁admin/tweets</h1>
+{{>admin-sidebar}}
+<div class="col-8 p-0 border-start border-end">
+  <div class="p-3 border-bottom">
+    <h4 class="p-0 m-0">推文清單</h4>
+  </div>
+  <div style="height: calc(100vh - 62px); max-height: calc(100vh - 62px); overflow-y: auto"
+      class="align-content-start">
+    <div class="p-3 d-flex align-items-start border-bottom">
+      <img src="/images/icon/User Photo.png" alt="">
+      <div style="margin-left: 8px;">
+        <span class="card-title tweets-name">user.name</span>
+        <span class="tweets-account"> @user.account ．Day.js</span>
+        <p style="line-height: 26px;
+          color: #171725;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+          overflow: hidden;
+          height: 52px;"
+          class="mt-2 mb-0">
+          >>>>user.tweet Some quick example text to
+          build on the card title and make up the bulk of the card's content.
+          >>>>user.tweet Some quick example text to
+          build on the card title and make up the bulk of the card's content.
+          >>>>user.tweet Some quick example text to
+          build on the card title and make up the bulk of the card's content.
+        </p>
+      </div>
+      <img src="../../public/images/basic/close.svg" width="15px" height="15px" alt="">
+    </div>
+  </div>
+</div>

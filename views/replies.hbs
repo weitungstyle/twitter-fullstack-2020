@@ -1,9 +1,9 @@
 <div class="container">
   <div class="row">
     {{>left-sidebar}}
+
     <div class="col-6 " id="top-tweet-box">
       <div class="border-end border-start">
-        {{!-- style="width: 56%;" --}}
         <div class="d-flex align-items-center border-bottom">
           <div class="p-4">
             <img src="/images/basic/back.svg" width="20px" />
@@ -49,7 +49,7 @@
           {{!-- reply card --}}
           <div class="d-flex px-4 py-3 border-bottom">
             <div>
-              <img src="/images/icon/userIcon@2x.png" width="50px" />
+              <img src="/images/icon/User Photo.png" width="50px" />
               {{!-- <img src="{{tweet.replierAvatar}}" alt="{{tweet.replierName}}" /> --}}
             </div>
             <div style="margin-left: 8px">
@@ -75,6 +75,8 @@
         </div>
       </div>
     </div>
-    {{> right-sidebar}}
+
+    {{>right-sidebar}}
+
   </div>
 </div>

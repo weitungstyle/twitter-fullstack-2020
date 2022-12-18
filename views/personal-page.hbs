@@ -1,0 +1,178 @@
+<div class="container">
+  <div class="row">
+    {{> left-sidebar}}
+    <div class="col-6 p-0">
+      <div class="d-flex align-items-center p-3">
+        <a href="javascript:history.back()">
+          <img src="/images/basic/back.svg" alt="">
+        </a>
+        <div style="margin-left: 20px;">
+          <span class="fw-bold" style="font-size: 18px;">崎玉</span><br />
+          <small class="text-secondary">22 推文</small>
+        </div>
+      </div>
+
+      <div>
+        <div class="profile-cover p-0" style="height: 200px">
+          <img
+            src="https://media.istockphoto.com/photos/beautiful-sky-with-white-clouds-picture-id182412483?b=1&k=20&m=182412483&s=612x612&w=0&h=rP2i77z5CxtQ4rK0qkN_TqNlm3aMwzP4XNsg5KVN-4I="
+            alt="cover" style="height:100%;width:100%; object-fit:cover">
+        </div>
+        <div class="d-flex justify-content-between px-3 profile-avatar">
+          <a href="">
+            <img src="https://i02piccdn.sogoucdn.com/75af42a6664f155b"
+              class="me-auto rounded-circle border border-white border-5" style="width:150px; height:150px">
+          </a>
+          <div class="d-flex align-items-end">
+            <button type="button" class="profile-edit-btn ms-1" id="editButton">編輯個人資料</button>
+          </div>
+        </div>
+
+        <div class="name-account-container d-flex flex-column bd-highlight p-1 ms-3">
+          <a href="" class="text-decoration-none">
+            <div class="profile-name">崎玉</div>
+          </a>
+          <a href="" class="text-decoration-none">
+            <div class="profile-account">@yahoo</div>
+          </a>
+        </div>
+
+        <div class="profile-follow col" style="max-width: 100%;">
+          <p class="profile-intro mx-4">
+            原為一個失業的普通上班族，在遇到怪人蟹爪蘭蒂並且打敗他救了孩子之後，決定成為英雄。
+          </p>
+          <div class="d-flex justify-content-start mx-4">
+            <div>
+              <a href=" " class="text-decoration-none" style="margin-right: 20px; font-size: 14px; line-height: 22px">
+                <span style="color: #171725;">22 個</span>
+                <span style="color: #6C757D;">跟隨中</span>
+              </a>
+            </div>
+            <div>
+              <a href=" " class="text-decoration-none" style="margin-right: 20px; font-size: 14px; line-height: 22px">
+                <span style="color: #171725;">33 個</span>
+                <span style="color: #6C757D;">跟隨者</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" href="/users/:id/tweets">推文</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/users/:id/replies">回覆</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/users/:id/likes">喜歡的內容</a>
+        </li>
+      </ul>
+
+      <div class="d-flex flex-column tabs-content" style="height: calc(100vh - 522px); max-height: calc(100vh - 522px); overflow-y: auto">
+        <!-- if = 推文 -->
+        <div class="d-flex border-bottom" style="padding: 16px 0">
+          <div id="tweet-icon">
+            <a href="/users/{{this.UserId}}/tweets">
+              <img src="/images/icon/User Photo.png" alt="" width="50" height="50" class="rounded-circle" />
+            </a>
+          </div>
+          <div id="tweet-right" style="width: 528px">
+            <div class="header">
+              <span style="font-size: 16px; line-height: 26px">John Doe</span>
+              <span style="font-size: 14px; line-height: 22px" class="text-muted">
+                @heyjohn．3小時</span>
+            </div>
+            <div class="content-word">
+              <a href="#" style="margin-bottom: 8px; line-height: 26px;" class="link-dark text-decoration-none">
+                Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis
+                ullamco cillum dolor. Voluptate exercitation incididunt aliquip
+                deserunt reprehenderit elit laborum.
+              </a>
+            </div>
+            <div class="d-flex justify-content-start">
+              <span style="font-size: 14px; margin-right: 40px">
+                <img src="/images/basic/white/reply.svg" alt="" width="15px" style="margin-right: 9px;">
+                13
+              </span>
+              <span style="font-size: 14px;">
+                <img src="/images/basic/white/like.svg" alt="" width="15px" style="margin-right: 9px;">6
+                {{!-- <img
+                  src="/images/basic/black/like.svg"
+                  alt=""
+                  width="15px"
+                  style="margin-right: 9px; filter: invert(76%) sepia(66%) saturate(5613%) hue-rotate(321deg) brightness(99%) contrast(126%);"> --}}
+              </span>
+            </div>
+          </div>
+        </div>
+        <!-- if = 回覆 -->
+        <div class="d-flex border-bottom" style="padding: 16px 0">
+          <div id="tweet-icon">
+            <a href="/users/{{this.UserId}}/tweets">
+              <img src="/images/icon/User Photo.png" alt="" width="50" height="50" class="rounded-circle" />
+            </a>
+          </div>
+          <div id="tweet-right" style="width: 528px">
+            <div class="header">
+              <span style="font-size: 16px; line-height: 26px">John Doe</span>
+              <span style="font-size: 14px; line-height: 22px" class="text-muted">
+                @heyjohn．3小時</span>
+            </div>
+            <p class="reply-whom">
+              回覆 <span style="color: #ff6600">@apple</span>
+            </p>
+            <div class="content-word">
+              <a href="#" style="margin-bottom: 8px; line-height: 26px;" class="link-dark text-decoration-none">
+                Amet minim mollit non deserunt ullamco est sit aliqua dolor do
+                amet sint.
+              </a>
+            </div>
+          </div>
+        </div>
+        <!-- if = 喜歡的內容 -->
+        <div class="d-flex border-bottom" style="padding: 16px 0">
+          <div id="tweet-icon">
+            <a href="/users/{{this.UserId}}/tweets">
+              <img src="/images/icon/User Photo.png" alt="" width="50" height="50" class="rounded-circle" />
+            </a>
+          </div>
+          <div id="tweet-right" style="width: 528px">
+            <div class="header">
+              <span style="font-size: 16px; line-height: 26px">John Doe</span>
+              <span style="font-size: 14px; line-height: 22px" class="text-muted">
+                @heyjohn．3小時</span>
+            </div>
+            <div class="content-word">
+              <a href="#" style="margin-bottom: 8px; line-height: 26px;" class="link-dark text-decoration-none">
+                Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis
+                ullamco cillum dolor. Voluptate exercitation incididunt aliquip
+                deserunt reprehenderit elit laborum.
+              </a>
+            </div>
+            <div class="d-flex justify-content-start">
+              <span style="font-size: 14px; margin-right: 40px">
+                <img src="/images/basic/white/reply.svg" alt="" width="15px" style="margin-right: 9px;">
+                13
+              </span>
+              <span style="font-size: 14px;">
+                {{!-- <img src="/images/basic/white/like.svg" alt="" width="15px">6 --}}
+                <img
+                  src="/images/basic/black/like.svg"
+                  alt=""
+                  width="15px"
+                  style="margin-right: 9px; filter: invert(76%) sepia(66%) saturate(5613%) hue-rotate(321deg) brightness(99%) contrast(126%);">
+                  6
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    {{> right-sidebar}}
+  </div>
+
+</div>

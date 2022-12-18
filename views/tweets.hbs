@@ -1,28 +1,63 @@
+{{!-- {{> modals}} --}}
 <div class="container">
-  <div style="margin: 100px;"></div>
   <div class="row">
-    <div class="col">
-      Column
-    </div>
-    <div class="card col-6" style="border:none;">
-      <div>
-        <div class="card-body tweets">
-          <img src="/images/icon/User Photo.png" alt="">
-          <span class="card-title tweets-name">user.name</span>
-          <span class="tweets-account"> @user.account ．Day.js</span>
-          <p class="card-text">
-            >>>>user.tweet Some quick example text to
-            build on the card title and make up the bulk of the card's content.
-          </p>
-          <div class="tweets-icons">
-            <a><img src="/images/basic/white/reply white.png">user.reply</a>
-            <a><img src="/images/basic/white/like white.png">user.like</a>
+    {{>left-sidebar}}
+
+    <div class="col-6 p-0" id="top-tweet-box">
+      <div class="card-main">
+        <div class="card-title" id="home-header">首頁</div>
+        <div class="cards-home opacity-100">
+          <div class="post-tweet border-top" data-bs-toggle="modal" data-bs-target="#tweet-modal">
+            <div class="card-image m-3">
+              <img src="/images/icon/User Photo.png" class="user-avatar">
+              <span>有什麼新鮮事？</span>
+            </div>
+            <div class="home-btn m-4">
+              <button type="submit" class="tweet">推文</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="height: calc(100vh - 235px); max-height: calc(100vh - 235px); overflow-y: auto">
+        <div class="d-flex border-bottom" style="padding: 16px 0">
+          <div id="tweet-icon">
+            <a href="/users/{{this.UserId}}/tweets">
+              <img src="/images/icon/User Photo.png" alt="" width="50" height="50" class="rounded-circle" />
+            </a>
+          </div>
+          <div id="tweet-right" style="width: 528px">
+            <div class="header">
+              <span style="font-size: 16px; line-height: 26px">John Doe</span>
+              <span style="font-size: 14px; line-height: 22px" class="text-muted">
+                @heyjohn．3小時</span>
+            </div>
+            <div class="content-word">
+              <a href="#" style="margin-bottom: 8px; line-height: 26px;" class="link-dark text-decoration-none">
+                Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis
+                ullamco cillum dolor. Voluptate exercitation incididunt aliquip
+                deserunt reprehenderit elit laborum.
+              </a>
+            </div>
+            <div class="d-flex justify-content-start">
+              <span style="font-size: 14px; margin-right: 40px">
+                <img src="/images/basic/white/reply.svg" alt="" width="15px" style="margin-right: 9px;">
+                13
+              </span>
+              <span style="font-size: 14px;">
+                <img src="/images/basic/white/like.svg" alt="" width="15px" style="margin-right: 9px;">6
+                {{!-- <img
+                  src="/images/basic/black/like.svg"
+                  alt=""
+                  width="15px"
+                  style="margin-right: 9px; filter: invert(76%) sepia(66%) saturate(5613%) hue-rotate(321deg) brightness(99%) contrast(126%);"> --}}
+              </span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="col">
-      Column
-    </div>
+
+    {{>right-sidebar}}
+
   </div>
 </div>

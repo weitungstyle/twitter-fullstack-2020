@@ -1,7 +1,7 @@
 /* @import url(//fonts.googleapis.com/earlyaccess/notosanstc.css); */
 @import "@fontsource/Noto_Sans_TC";
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
- 
+
 @font-face {
   font-family: "Noto Sans TC";
   src:local(Noto Sans TC);
@@ -12,12 +12,16 @@
   font-family: "Montserrat";
   src:local(Montserrat);
   unicode-range: U+2150-U+218F;
-} 
+}
 
 /* body{
   font-family: "Noto Sans TC"  !important ;
 } */
-
+body, html
+{
+  height: 100%;
+  margin: 0;
+}
 
 .first-con{
 margin-top:69px;
@@ -26,7 +30,7 @@ text-align:center;
 }
 
 first-con img{
-display:block; 
+display:block;
 margin:auto;
 }
 
@@ -34,7 +38,6 @@ margin:auto;
 margin:40px;
 font-weight:700;
 font-size:28px;
-font-family: "Noto Sans TC","Montserrat";
 }
 
 form div {
@@ -71,7 +74,7 @@ input:hover{
 }
 
 #button{
-border-radius:50px; 
+border-radius:50px;
 border:none;
 background-color:#FF6600;
 color:white;
@@ -96,44 +99,146 @@ margin: 10px;
   margin-left: 13px;
   font-size: 16px;
 }
+/* homepage */
 
-/* .tab_css {
+.card-home{
+  background-color:white;
+  border-bottom: 18px solid #E6ECF0;
+}
+.post-tweet{
+  height:153px;
+}
+
+.post-tweet span{
+  color:#6C757D;
+  font-size: 18px;
+  margin:8px;
+}
+
+.home-btn{
+  display: flex;
+  justify-content: end;
+}
+
+.home-btn .tweet{
+   color: white;
+   font-size: 16px;
+   background-color:#ff6600;
+   border: 1px solid #FF6600;
+   border-radius:20px;
+   width:96px;
+   height:40px;
+   margin-left:30px;
+}
+
+/* left sidebar */
+.left-sidebars_css {
 display: flex;
-flex-wrap: wrap;
-justify-content: start;
+flex-direction: column ;
+margin-left: 100px;
 }
-
-.tab_css input {
-display: none
+.ac-icon{
+  width: 40px;
+  height:40px;
+  margin-top: 13px;
+  margin-bottom: 31.78px;
 }
-
-.tab_css label {
-margin: 0 5px 5px 0;
-padding: 10px 16px;
-cursor: pointer;
-font-weight: bold;
-color: #657786;
-width:150px;
-text-align: center;
+#toReply{
+  color:inherit;
+  text-decoration: none;
 }
-
-.tab_content {
-order: 1;
+.left-sidebars_css input {
 display: none;
 }
-
-.tab_css input:checked+label{
-  opacity: 1;
+.left-sidebars_css a{
+  width: 200px;
+  height: 60px;
+  color:inherit;
+  text-decoration: none;
+  display: block;
+}
+.left-sidebars_css label {
+/* cursor: pointer; */
 font-weight: bold;
-color: #FF6600;
-border-bottom: 2px solid #FF6600;
+color: #657786;
+/* width:150px;
+height: 30px; */
+text-align: start;
+margin-bottom: 40px;
 }
 
-.tab_css input:checked+label+.tab_content {
-display: initial;
+.left-sidebars_css input:checked+label{
+/* opacity: 1; */
+font-weight: bold;
+filter: invert(44%) sepia(66%) saturate(2603%) hue-rotate(359deg) brightness(99%) contrast(106%);
+}
+
+.left-sidebars_css span{
+  font-size: 18px;
+  font-weight: 700px;
+  color: #44444F;
+}
+.left-sidebars_css .icon{
+  height:22.2px;
+  width:20.25px;
+}
+.sidebar-lb{
+display: flex;
+flex-direction: column;
+align-items: start;
+}
+.sidebar-lb .tweet-button{
+  border: none;
+  height: 40px;
+  color: #FFFFFF;
+  background: #FF6600;
+  border-radius: 50px;
+  width: 180px;
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.logout{
+width: 205px;
+position: fixed;
+bottom: 0px;
+z-index: 3;
+overflow: visible;
+}
+
+
+/* 移除超連結樣式 */
+/* a, a:hover, a:visited, a:link, a:active{
+    color:inherit;
+    text-decoration: none;
+} */
+/* label a span:hover{
+  color: black;
 } */
 
 /* 貼文渲染 */
+
+#home-header {
+  margin-top: 25px;
+  margin-left: 0px;
+  padding-bottom: 10px;
+  padding-left: 25px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 20px;
+  color: #171725;
+}
+/* 要改名? */
+/* #tweet-button {
+  font-family: "Noto Sans TC";
+  border: none;
+  width: 80px;
+  height: 40px;
+  color: #FFFFFF;
+  background: #FF6600;
+  border-radius: 50px;
+} */
 .tweets{
   width:100%;
   border-top:1px solid  #E6ECF0;
@@ -151,7 +256,7 @@ display: initial;
 
 .tweets p{
   height:100%;
-  margin-left:40px; 
+  margin-left:40px;
   font-size:16px;
 }
 
@@ -190,8 +295,9 @@ border:1px solid  #E6ECF0;
 }
 
 nav .nav-tabs .nav-button{
-  border:none;    
+  border:none;
 }
+
 nav .nav-tabs .nav-link{
   border:none;
   color:#6C757D;
@@ -200,9 +306,525 @@ nav .nav-tabs .nav-link{
   font-size: 15px;
   font-weight: 700px;
 }
+
 nav .nav-tabs .nav-link.active{
-  opacity: 1;
+opacity: 1;
 font-weight: bold;
 color: #FF6600;
 border-bottom: 2px solid #FF6600;
+}
+
+/* right-sidebar */
+
+h4 {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 26px;
+  padding-top: 24px;
+  margin-left: 24px;
+  margin-bottom: 24px;
+}
+
+.popular-container {
+  width: 273px;
+  height: 731px;
+  background: #fafafb;
+  border-radius: 16px;
+}
+
+.popular-title {
+  border-bottom: 1px solid #e6ecf0;
+}
+
+.popular-list-group li {
+  border: none;
+  background: #fafafb;
+  padding: 0;
+}
+
+.user-icon {
+  display: flex;
+  background: #c4c4c4;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+}
+
+.list-group-item {
+  margin: 0px 16px 30px 16px;
+  width: 241px;
+  height: 50px;
+}
+
+.popular-name {
+  height: 26px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 26px;
+  color: #171725;
+  margin-bottom: -3px;
+}
+
+.small-account {
+  height: 22px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+  color: #92929d;
+}
+
+.following-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 16px;
+  width: 96px;
+  height: 40px;
+  background: #ff6600;
+  border-radius: 50px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #ffffff;
+  padding: 0;
+  border: none;
+}
+
+.follow-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 16px;
+  width: 64px;
+  height: 40px;
+  background: #ffffff;
+  border: 1px solid #ff6600;
+  border-radius: 50px;
+  color: #ff6600;
+  padding: 0;
+}
+
+/* 個人主頁下方 */
+/* .nav-tabs {
+  position: relative;
+  left: 333px;
+  width: 639px;
+  height: 53px;
+} */
+
+.nav-tabs .nav-item {
+  width: 130px;
+  height: 52px;
+}
+
+.nav-tabs .nav-item .nav-link {
+  position: relative;
+  top: 11px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 22px;
+  color: #657786;
+  text-align: center;
+}
+
+/* active時啟動 */
+.nav-tabs .nav-item .nav-link.active {
+  color: #ff6600;
+  border-color: #fff #fff #ff6600;
+  border-width: 2px;
+}
+
+/* .tabs-content {
+  position: relative;
+  left: 333px;
+  padding: 0px;
+  width: 639px;
+  border: 1px;
+  border-color: transparent #e6ecf0 #e6ecf0;
+} */
+
+.each-tweet {
+  border: 1px solid #e6ecf0;
+}
+
+#tweet-icon {
+  position: relative;
+  left: 24px;
+  width: 50px;
+  height: 50px;
+}
+
+#tweet-right {
+  position: relative;
+  left: 32px;
+  padding: 0;
+}
+
+#tweet-right .header {
+  font-style: normal;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+#tweet-right .header span{
+  font-weight: 700;
+}
+
+#tweet-right .header .text-muted{
+  font-weight: 400;
+}
+
+#tweet-right .reply-whom {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: #6c757d;
+  margin-bottom: 8px;
+}
+
+/* 個人主頁上方 */
+/* Admin users css */
+/* Admin users css */
+
+.hr-line {
+  margin: 0px -12px;
+  border: 1px solid #E6ECF0;
+  top: 30%;
+  left: 30%;
+}
+
+.admin-container .row .main {
+  width: 1050px;
+}
+
+.admin-users-head {
+  margin: 24px 12px;
+}
+
+.row .main {
+  min-height: 100vh;
+  max-height: 100%
+}
+
+.card {
+  position: relative;
+  width: 249px;
+  height: 314px;
+  background: #f6f7f8;
+  border-radius: 10px;
+}
+
+.card-main {
+  position: relative;
+  height: 210px;
+  border-bottom: 10px solid #E6ECF0;
+}
+
+.card-top {
+  position: absolute;
+  left: 0%;
+  right: 0%;
+  top: 0%;
+  width: 249px;
+  height: 140px;
+  background: url(.jpg), #c4c4c4;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.card-cover {
+  width: 249px;
+  height: 140px;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.card-middle {
+  width: 100px;
+  height: 154px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+  gap: 8px;
+  position: absolute;
+  left: 29.72%;
+  right: 30.12%;
+  top: 20.38%;
+  bottom: 30.57%;
+}
+
+.card-avatar-part {
+  width: 100px;
+  height: 100px;
+}
+
+.card-avatar {
+  width: 100px;
+  height: 100px;
+  border: 3px solid #ffffff;
+  border-radius: 50px;
+}
+
+.card-name {
+  margin: 0;
+  padding: 0;
+  width: 100px;
+  height: 26px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 26px;
+}
+
+.card-account {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-size: 14px;
+  color: #6c757d;
+}
+
+.card-tweet-like {
+  display: flex;
+  width: 140px;
+  height: 26px;
+  position: absolute;
+  left: 22.09%;
+  right: 22.09%;
+  top: 74.52%;
+  bottom: 17.2%;
+}
+
+.card-tweet,
+.card-like {
+  display: flex;
+  width: 50%;
+  height: 100%;
+}
+
+.card-followship {
+  display: flex;
+  justify-content: center;
+  width: 160px;
+  height: 22px;
+  gap: 3px;
+  position: absolute;
+  left: 18.48%;
+  right: 18.07%;
+  top: 85.35%;
+  bottom: 7.64%;
+}
+
+.card-following,
+.card-follower {
+  display: flex;
+  width: 50%;
+  height: 100%;
+  font-size: 14px;
+}
+
+.card-icon {
+  width: 20px;
+  height: 24px;
+}
+
+.card-num {
+  align-items: center;
+  font-size: 16px;
+  margin-left: 5px;
+  position: absolute;
+  top: 38%;
+  margin: -8px 0px 0px 25px;
+}
+
+
+
+
+/* 個人和其他使用者profile */
+
+a {
+  text-decoration: none;
+  color: #171725;
+}
+
+.profile-header {
+  width: 639px;
+  height: 75px;
+}
+
+.profile-body {
+  width: 639px;
+  height: 400px;
+}
+
+button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+}
+
+.name-account-container {
+  width: auto;
+}
+
+.profile-intro {
+  font-size: 14px;
+  color: #171725;
+}
+
+.profile-edit-btn {
+  box-sizing: border-box;
+  width: 128px;
+  height: 40px;
+  background: #FFFFFF;
+  border: 1px solid #FF6600;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #FF6600;
+}
+
+.profile-edit-btn:hover {
+  background: #FF6600;
+  border: none;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #FFFFFF;
+}
+
+.follow-btn {
+  box-sizing: border-box;
+  width: 96px;
+  height: 40px;
+  background: #FFFFFF;
+  border: 1px solid #FF6600;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #FF6600;
+}
+
+.follow-btn:hover {
+  background: #FF6600;
+  border: none;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #FFFFFF;
+}
+
+.following-btn {
+  width: 96px;
+  height: 40px;
+  background: #FF6600;
+  border: none;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #FFFFFF;
+}
+
+.following-btn:hover {
+  box-sizing: border-box;
+  background: #FFFFFF;
+  border: 1px solid #FF6600;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #FF6600;
+}
+
+
+.profile-name {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 26px;
+  color: #171725;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-account{
+  font-size: 14px;
+  color: #92929D;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-name:hover , .profile-account:hover{
+  color: #FF6600;
+}
+
+
+.profile-avatar {
+  margin-top:-80px;
+  z-index:100;
+  position:relative;
+}
+
+.followship {
+  display: flex;
+  width: 180px;
+  height: 22px;
+  gap: 5px;
+}
+
+.admin-list-group .list-group-item {
+  width: calc(100% - 10px);
+  height: 64px;
+  line-height: 64px;
+  border: none;
+}
+
+.admin-list-group .list-group-item span{
+  margin-left: 20px;
+}
+
+.admin-list-group .list-group-item a{
+  text-decoration: none;
+  color: #44444F;
+  font-weight: 700;
+}
+
+.admin-list-group .list-group-item .active{
+  color: #FF6600;
+
+}
+
+.admin-list-group .list-group-item .active img{
+  filter: invert(45%) sepia(96%) saturate(2634%) hue-rotate(360deg) brightness(101%) contrast(107%);
+}
+
+.single-line-ellipsis {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  word-break: break-all;
+  overflow: hidden;
 }

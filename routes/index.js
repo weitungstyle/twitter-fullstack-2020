@@ -17,7 +17,7 @@ const { generalErrorHandler } = require('../middleware/error-handler')
 router.get('/admin/signin', adminController.signInPage)
 router.post('/admin/signin', passport.authenticate('local', { failureRedirect: '/admin/signin', failureFlash: true }), adminController.signIn)
 router.get('/admin/logout', adminController.logout)
-router.use('/admin', authenticatedAdmin, admin)
+router.use('/admin', admin)
 
 // 要在 router 部分裡面  新增 authenticated (使用者認證)
 
@@ -33,9 +33,16 @@ router.get('/logout', userController.logout)
 router.get('/signup', userController.signUpPage)
 router.post('/signup', userController.signUp)
 
+router.get('/users/', userController.getUserPage)
+//users
+router.get('/users/:id/tweets', userController.getUserTweets)
+router.get('/users/:id/replies', userController.getUserReplies)
+router.get('/users/:id/likes', userController.getUserLikes)
+
+
 //tweets
 // router.get('/tweets', userController.getTweets)
-router.get('/tweets', authenticated, tweetController.getTweet)
+router.get('/tweets', tweetController.getTweet)
 router.post('/tweets', tweetController.postTweet)
 
 // //fallback
