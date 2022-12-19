@@ -89,7 +89,7 @@ typings/
 package.json
 package-lock.json
 
-test.txt
+.test
 following(沒有要用).hbs
 
 controller/
