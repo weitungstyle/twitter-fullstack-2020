@@ -1,27 +1,29 @@
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-3">
-      <div style="margin-left: 100px;">
-        <img class="ac-icon" src="/images/icon/Icon.png" alt="AC ICON">
-        <ul class="list-group list-group-flush admin-list-group">
-          <li class="list-group-item m-0 p-0">
-            <a href="/admin/tweets" class="active">
-              <img class="icon" src="/images/basic/white/home.svg" alt="homepage">
-              <span>推文清單</span>
-            </a>
-          </li>
-          <li class="list-group-item m-0 p-0">
-            <a href="/admin/users">
-              <img class="icon" src="/images/basic/white/user.svg" alt="homepage">
-              <span>使用者列表</span>
-            </a>
-          </li>
-          <li class="list-group-item mx-0 mb-0 p-0" style="margin-top: calc(100vh - 280px);">
-            <a href="/logout">
-              <img class="icon" src="/images/basic/logout.svg" alt="logout">
-              <span>登出</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
+<div class="col-3">
+  <div class="left-sidebars_css admin-sidebar">
+    <img class="ac-icon" src="/images/icon/Icon.png" alt="AC ICON">
+
+    <ul class="user-list-group">
+
+      <li>
+        <a href="/admin/tweets" class="{{#ifCond route 'tweets' }}active{{/ifCond}}">
+          <span><img class="icon" src="/images/basic/white/home.svg" alt="homepage">
+            推文清單</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="/admin/users" class="{{#ifCond route 'users' }}active{{/ifCond}}">
+          <img class=" icon" src="/images/basic/white/user.svg" alt="homepage">
+          <span>使用者列表</span>
+        </a>
+      </li>
+
+      <li class="logout-admin">
+        <a href="/logout">
+          <img class="icon" src="/images/basic/logout.svg" alt="logout">
+          <span>登出</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

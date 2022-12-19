@@ -1,56 +1,42 @@
-{{>admin-sidebar}}
-{{!-- <div style="width: calc(100% - 202px)" class="border-end"> --}}
-  <div class="col-8 p-0 border-start border-end">
-    <div class="p-3 border-bottom">
-      <h4 class="p-0 m-0">使用者列表</h4>
-    </div>
-    <div style="height: calc(100vh - 62px); max-height: calc(100vh - 62px); overflow-y: auto"
-      class="p-3 row align-content-start">
-      <div class="col-3" style="height: 314px; margin-bottom: 16px">
-        <div class="border" style="height: 100%; border-radius: 10px; background-color: #F6F7F8">
-          <div style="height: 140px;
-            background-size: cover;
-            background-image: url('https://www.canada-visa-online.org/uploads/image/0c5263e499924bc58c9e0161da177f76/maple-leaf.jpg');
-            background-position: center;
-            background-repeat: no-repeat;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-            position: relative">
-            <div style="position: absolute;
-              border-radius: 50%;
-              left: 50%;
-              bottom: -24px;
-              transform: translate(-50%, 0);
-              width: 100px;
-              height: 100px;
-              background-size: cover;
-              background-image: url('https://media.newyorker.com/photos/5a8862150095ae7e55570156/16:9/w_1280,c_limit/Mead-Peter-Rabbit.jpg');
-              background-position: center;
-              background-repeat: no-repeat;
-              border: 4px #ffffff solid">
+<div class="container">
+  <div class="row">
+    {{>admin-sidebar route="users"}}
+    <div class="admin-users col-9">
+      <div class=" home-header">
+        使用者列表
+      </div>
+      <div style="height: calc(100vh - 76px); max-height: calc(100vh - 76px); overflow-y: auto"
+      class="align-content-start">
+      {{#each users}}
+      <div class="user-card">
+        <div class="col-3 user-card-main">
+          <div class="user-border">
+            <div class="user-border-img">
+              <div class="user-border-avatar">
+              </div>
             </div>
-          </div>
-          <div class="pb-4 text-center" style="padding-top: 32px">
-            <p class="mb-0" style="font-weight: 700; line-height: 26px; color: #171725">John Doe</p>
-            <p style="font-size: 14px; line-height: 22px; color: #6C757D; margin-bottom: 20px">@heyjohn</p>
-            <div class="d-flex justify-content-center mb-2">
-              <img src="../../public/images/basic/black/post black.png" width="24px" style="margin-right: 8px" />
-              <p class="mb-0" style="margin-right: 18px; font-weight: 500; color: #1C1C1C">1.5k</p>
-              <img src="../../public/images/basic/white/like white.png" width="24px" style="margin-right: 8px" />
-              <p class="mb-0" style="font-weight: 500; color: #1C1C1C">20k</p>
-            </div>
-            <div class="d-flex justify-content-center">
-              <p class="mb-0" style="margin-right: 8px; font-size: 14px; line-height: 22px">
-                <span style="color: #171725;">34 個</span>
-                <span style="color: #6C757D;">跟隨中</span>
-              </p>
-              <p class="mb-0" style="font-size: 14px; line-height: 22px">
-                <span style="color: #171725;">59 位</span>
-                <span style="color: #6C757D;">跟隨者</span>
-              </p>
+            <div class="text-center">
+              <p class="mb-0">{{this.name}}</p>
+              <p class="mb-1">@{{this.account}}</p>
+              <div class="text-center-info">
+                <img src="/images/basic/black/post.svg">
+                <p class="mb-0">{{this.tweetsCount}}</p>
+                <img src="/images/basic/white/like.svg">
+                <p class="mb-0">{{this.likesCount}}</p>
+              </div>
+              <div class="text-center-follow">
+                <p class="mb-0">
+                {{this.followingCount}} 個<span>跟隨中</span>
+                </p>
+                <p class="mb-0">
+                {{this.followerCount}} 位<span>跟隨者</span>
+                </p>
+              </div>
             </div>
           </div>
         </div>
+      </div>
+      {{/each}}
       </div>
     </div>
   </div>

@@ -1,4 +1,5 @@
-const { User, Tweet } = require('../models')
+const { User, Tweet, Followship } = require('../models')
+const sequelize = require('sequelize')
 const { getUser } = require('../_helpers')
 
 const adminController = {
@@ -17,18 +18,27 @@ const adminController = {
   getTweets: (req, res, next) => {
     return Tweet.findAll({
       order: [['createdAt', 'DESC']],
+      include: [User],
       nest: true,
       raw: true
     })
       .then(tweets => {
-        res.render('admin/tweets',)
+        res.render('admin/tweets', { tweets })
       })
       .catch(err => next(err))
   },
-  getUsers: (req, res, next) => {
+  getUsers: async (req, res, next) => {
     return User.findAll({
+      attributes: {
+        include: [
+          [sequelize.literal(`(SELECT COUNT(*) FROM Followships WHERE following_id = User.id)`), 'followerCount'],
+          [sequelize.literal('(SELECT COUNT(*) FROM Followships WHERE follower_id = User.id)'), 'followingCount'],
+          [sequelize.literal('(SELECT COUNT(*) FROM Tweets WHERE user_id = User.id)'), 'tweetsCount'],
+          [sequelize.literal('(SELECT COUNT(*) FROM Likes WHERE user_id = User.id)'), 'likesCount']
+        ]
+      },
       where: { role: 'user' },
-      order: [['createdAt', 'DESC']],
+      order: [[sequelize.literal('tweetsCount'), 'DESC']],
       nest: true,
       raw: true
     })

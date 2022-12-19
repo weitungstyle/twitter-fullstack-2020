@@ -14,32 +14,26 @@
   unicode-range: U+2150-U+218F;
 }
 
-/* body{
+body{
   font-family: "Noto Sans TC"  !important ;
-} */
+}
 body, html
 {
   height: 100%;
   margin: 0;
 }
-
+/* 登入登出註冊 */
 .first-con{
 margin-top:69px;
 width:440px;
 text-align:center;
 }
-
-first-con img{
-display:block;
-margin:auto;
-}
-
 #title {
 margin:40px;
 font-weight:700;
 font-size:28px;
+font-family: "Noto Sans TC","Montserrat";
 }
-
 form div {
 text-align: start;
 background-color:#F5F8FA;
@@ -50,30 +44,27 @@ flex-direction: column;
 /* font-family:"Noto Sans TC"; */
 height:54px;
 }
-
 label{
 font-size: 14px;
 padding:5px;
 }
-
 ::placeholder{
 color:#B5B5BE;
 font-size:16px;
+font-family:"Noto Sans TC";
 }
-
-input{
+.form-signin input, .form-signup input{
 border:none;
 background-color:#F5F8FA;
 border-bottom: 2px solid #657786;
 font-size:16px;
 padding:5px;
 }
-
-input:hover{
+.form-signin input:hover,.form-signup input:hover{
   border-bottom: 2px solid #50B5FF;
 }
 
-#button{
+#login-button{
 border-radius:50px;
 border:none;
 background-color:#FF6600;
@@ -93,42 +84,410 @@ font-size:16px;
 .register span{
 margin: 10px;
 }
-
 .cancel{
   margin-top:30px;
   margin-left: 13px;
   font-size: 16px;
 }
-/* homepage */
 
+/* homepage */
 .card-home{
-  background-color:white;
-  border-bottom: 18px solid #E6ECF0;
+    overflow-y: auto;
+    overflow-x:hidden;
+    border-left:1px solid	#E6ECF0;
+}
+/* 卷軸正在動 */
+.card-home::-webkit-scrollbar-thumb {
+  background-color: #C1C1C1;
+  border-radius: 100px;
+}
+/*卷軸背景*/
+.card-home::-webkit-scrollbar-track {
+  background-color: #FAFAFA;
+}
+.home-header{
+  font-family:"Noto Sans TC";
+  font-size: 24px;
+  font-weight:700px;
+  height: 74px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid 	#E6ECF0;
+  padding-left:23px;
+  position: relative;
+}
+.following-header{
+margin-top: 10px;
+}
+.main-top{
+padding: 16px 26px;
+display:flex;
+border-bottom: 10px solid #E6ECF0;
+position: relative;
+}
+.user-avatar{
+  position: relative;
+  /* left: 10px; */
+  height: 50px;
+  width: 50px;
 }
 .post-tweet{
-  height:153px;
+width:634px;
+height:153px;
+background-color: white;
+}
+#description{
+margin:12px 2px;
+border:0;
+background-color: rgba(0, 0, 0, 0);
+font-size:16px;
+outline: none;
+}
+#description::placeholder{
+color:#B5B5BE;
+font-size:18px;
+font-weight: 700px;
+font-family:"Noto Sans TC";
+}
+.btn-sml{
+margin: 6px 24px;
+color: white;
+font-size: 16px;
+background-color:#ff6600;
+border: 1px solid #FF6600;
+border-radius:20px;
+width:96px;
+height:40px;
+font-family: 'Noto Sans TC';
+position: absolute;
+right:0;
+bottom: 0;
 }
 
-.post-tweet span{
-  color:#6C757D;
-  font-size: 18px;
-  margin:8px;
+.main-bottom{
+  height: calc(100vh - 235px);
+  max-height: calc(100vh - 235px);
+  /* overflow-y: auto; */
+}
+.card-home::-webkit-scrollbar {
+  width: 13px;
 }
 
-.home-btn{
+/* 主頁下方貼文 */
+.tweets-box{
+display: flex;
+  position: relative;
+  /* left: 16px; */
+  padding: 0;
+  border-bottom: 1px solid #E6ECF0;
+}
+#toReply{
+  color:inherit;
+  text-decoration: none;
+}
+.tweets-box-main{
+  position: relative;
+  left: 16px;
+  width: calc(100% - 73px);
+  padding: 0;
+}
+.tweets-header{
+  font-style: normal;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.tweets-header span{
+  font-size: 16px;
+  line-height: 26px;
+}
+.tweets-account{
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+  color:#6c757d;
+}
+.tweets-content{
+margin-bottom: 8px;
+line-height: 26px;
+font-weight: 400px;
+font-size: 16px;
+}
+.tweets-icons{
+  display:flex;
+   justify-content: start;
+}
+.tweets-icons a{
+font-size: 14px;
+margin-right: 40px
+}
+.tweets-icons img{
+ width:14px;
+margin-right: 9px;
+}
+
+/* 貼文與回覆 */
+.replies-page{
+  border-bottom: 1px solid 	#E6ECF0;
+}
+.tweetAndReply{
+  margin-left: 16px;
+}
+.back-icon{
+width:20px;
+margin-right: 15px;
+}
+.tweets-box-sec{
   display: flex;
-  justify-content: end;
+  align-items: center;
+  position: relative;
+  padding: 0;
+}
+.tweets-header-sec{
+margin-left: 8px;
+position: relative;
+border-bottom: 1px solid 	#E6ECF0;
+}
+.tAR-name{
+font-family:"Noto Sans TC" ;
+font-weight:700px;
+font-size:16px;
+margin-top: 16px;
+margin-bottom: 0;
+}
+.tAR-account{
+  padding: 0;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+  color:#6c757d;
+}
+.tweets-content-sec{
+  font-weight: 400;
+  line-height: 36px;
+  color: #171725;
+  font-size:24px;
+  border-bottom:1px solid  #E6ECF0;
+}
+.tweets-mid{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+ border-bottom:1px solid  #E6ECF0;
+ height: 60px;
+}
+.tweets-mid p{
+  font-size: 19px;
+  margin:16px 24px 16px 0;
+  line-height: 27px;
+  color:#6C757D;
+}
+.tweet-mid span{
+  font-weight: 700;
+  color: #171725;
+}
+.tweets-icons-lar{
+  color:#6C757D;
+  border-bottom:1px solid  #E6ECF0;
+  height: 68px;
+  display: flex;
+  align-items: center;
+}
+.tweets-icons-lar img{
+  margin-right: 133px;
 }
 
-.home-btn .tweet{
-   color: white;
-   font-size: 16px;
-   background-color:#ff6600;
-   border: 1px solid #FF6600;
-   border-radius:20px;
-   width:96px;
-   height:40px;
-   margin-left:30px;
+.reply-box{
+  height: calc(100vh - 372px);
+  max-height: calc(100vh - 372px);
+}
+.reply-card{
+  display: flex;
+  margin: 23px;
+ border-bottom:1px solid  #E6ECF0;
+}
+
+ /* followings*/
+/* header */
+.home-header-sec{
+border:1px solid #E6ECF0;
+display: flex;
+align-items: center;
+padding-left: 28px;
+height: 75px;
+}
+.text-secondary{
+  font-size:13px;
+  color:#6C757D;
+  margin-left:38px;
+}
+.personal-name{
+  font-size: 18px;
+  font-weight:700px;
+  line-height: 26px;
+}
+/* followings tab */
+.tab-above,.following-tab,.following-main{
+border:1px solid  #E6ECF0;
+}
+nav .nav-tabs .nav-button{
+  border:none;
+}
+nav .nav-tabs .nav-link{
+  border:none;
+  color:#6C757D;
+  width:100px;
+  height: 52px;
+  font-size: 15px;
+  font-weight: 700px;
+}
+nav .nav-tabs .nav-link.active{
+opacity: 1;
+font-weight: bold;
+color: #FF6600;
+border-bottom: 2px solid #FF6600;
+}
+.btn-position{
+  position: absolute;
+  right:0;
+  top:0;
+  margin:16px 30px;
+}
+
+/* 個人和其他使用者profile */
+.profile-cover{
+  height: 200px;
+}
+.profile-cover img{
+  height:100%;
+  width:100%;
+  object-fit:cover"
+}
+.profile-avatar {
+  margin-top:-80px;
+  z-index:100;
+  position:relative;
+  display: flex;
+  justify-content:space-between;
+}
+.profile-avatar img{
+ width:140px;
+ height:140px;
+ border-radius: 50%;
+ border: 5px solid white;
+ margin-left: 16px;
+}
+.profile-edit-btn {
+  width: 128px;
+  height: 40px;
+  background: #FFFFFF;
+  border: 1px solid #FF6600;
+  border-radius: 50px;
+  font-size: 16px;
+  color: #FF6600;
+  margin: 100px 16px 0 0 ;
+}
+.profile-edit-btn:hover {
+  background: #FF6600;
+  color: #FFFFFF;
+}
+.profile-context{
+  display: flex;
+  flex-direction: column;
+  border-bottom:1px solid  #E6ECF0;
+  margin-left: 10px;
+}
+.profile-name{
+ font-weight: 700;
+  font-size: 18px;
+  line-height: 26px;
+  color: #171725;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.profile-intro{
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+  color:#171725;
+  margin-top: 6px;
+}
+.follow-ship {
+  width: 180px;
+  height: 22px;
+ height: 60px;
+}
+.follow-ship a{
+display: flex;
+  justify-content: start;
+  align-items: center;
+}
+.follow-ship p{
+  margin-right: 20px;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400px;
+  color:#6C757D;
+}
+.follow-ship p span{
+  color:#171725;
+}
+/* 移除超連結樣式 */
+a, a:hover, a:visited, a:link, a:active,a:focus{
+    color:inherit;
+    text-decoration: none;
+}
+/* 個人主頁tab */
+.nav-tabs .nav-item {
+  width: 130px;
+  height: 52px;
+}
+.nav .nav-item a{
+  border:none;
+}
+.nav-tabs .nav-item .nav-link {
+  position: relative;
+  top: 11px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 22px;
+  color: #657786;
+  text-align: center;
+}
+/* active時啟動 */
+.nav-tabs .nav-item .nav-link.active {
+  color: #ff6600;
+  border-color: #fff #fff #ff6600;
+  border-width: 2px;
+}
+/* 個人主頁tab內容 */
+.tabs-content{
+  display: flex;
+  flex-direction:column;
+   height: calc(100vh - 522px);
+   max-height: calc(100vh - 522px);
+}
+.tab-tweets{
+  display: flex;
+ padding: 16px 0;
+}
+
+/* 帳戶設定 */
+.setting-main{
+  display: flex;
+  justify-content: center;
+  width:593px;
+  position: relative;
+  height: 570px;
+  margin: 20px;
+}
+.setting-main div{
+  /* margin:20px; */
+  width:593px;
+}
+.left{
+border-left:1px solid #E6ECF0;
 }
 
 /* left sidebar */
@@ -143,37 +502,27 @@ margin-left: 100px;
   margin-top: 13px;
   margin-bottom: 31.78px;
 }
-#toReply{
-  color:inherit;
-  text-decoration: none;
+.user-list-group{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 20px;
 }
-.left-sidebars_css input {
-display: none;
-}
-.left-sidebars_css a{
+.user-list-group a{
   width: 200px;
   height: 60px;
   color:inherit;
   text-decoration: none;
   display: block;
 }
-.left-sidebars_css label {
-/* cursor: pointer; */
-font-weight: bold;
-color: #657786;
-/* width:150px;
-height: 30px; */
-text-align: start;
-margin-bottom: 40px;
+.user-list-group li{
+  list-style-type: none;
 }
-
-.left-sidebars_css input:checked+label{
-/* opacity: 1; */
+.user-list-group .active {
 font-weight: bold;
 filter: invert(44%) sepia(66%) saturate(2603%) hue-rotate(359deg) brightness(99%) contrast(106%);
 }
-
-.left-sidebars_css span{
+.user-list-group span{
   font-size: 18px;
   font-weight: 700px;
   color: #44444F;
@@ -183,11 +532,9 @@ filter: invert(44%) sepia(66%) saturate(2603%) hue-rotate(359deg) brightness(99%
   width:20.25px;
 }
 .sidebar-lb{
-display: flex;
-flex-direction: column;
-align-items: start;
+  margin-right: 24px;
 }
-.sidebar-lb .tweet-button{
+#tweet-button{
   border: none;
   height: 40px;
   color: #FFFFFF;
@@ -197,28 +544,103 @@ align-items: start;
   font-weight: 400;
   font-size: 20px;
 }
-
 .logout{
-width: 205px;
-position: fixed;
-bottom: 0px;
-z-index: 3;
-overflow: visible;
+margin-top: calc(100vh - 400px);
 }
+.logout span,.logout-admin span{
+font-size:18px;
+}
+.logout-admin{
+  margin-top: calc(100vh - 280px);
+}
+/* admin */
+.admin-sidebar{
+display: flex;
+justify-content: center;
+}
+.admin-tweets,.admin-users{
+border:1px solid #E6ECF0;
+}
+.user-card{
+  /* height: calc(100vh - 62px); */
+  /* max-height: calc(100vh - 62px); */
+  width:auto;
+  overflow-y: auto;
+  /* display: flex; */
+  align-items: start;
+  padding: 15px;
 
-
-/* 移除超連結樣式 */
-/* a, a:hover, a:visited, a:link, a:active{
-    color:inherit;
-    text-decoration: none;
-} */
-/* label a span:hover{
-  color: black;
-} */
-
+}
+.user-card-main{
+  height: 314px;
+  /* margin-bottom: 16px; */
+}
+.user-border{
+  height: 100%;
+  border-radius: 10px;
+  background-color: #F6F7F8;
+  border:1px solid #C4C4C4;
+}
+.user-border-img{
+  height: 140px;
+  background-size: cover;
+  background-image: url('https://www.canada-visa-online.org/uploads/image/0c5263e499924bc58c9e0161da177f76/maple-leaf.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  position: relative;
+}
+.user-border-avatar{
+  position: absolute;
+  border-radius: 50%;
+  left: 50%;
+  bottom: -24px;
+  transform: translate(-50%, 0);
+  width: 100px;
+  height: 100px;
+  background-size: cover;
+  background-image: url('https://media.newyorker.com/photos/5a8862150095ae7e55570156/16:9/w_1280,c_limit/Mead-Peter-Rabbit.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 4px #ffffff solid;
+}
+.user-border .text-center{
+  padding-top: 32px
+}
+.user-border .text-center .mb-0,.text-center-follow .mb-0{
+  font-weight: 700;
+  line-height: 26px;
+  color: #171725;
+  margin: 2px;
+}
+.user-border .text-center .mb-1{
+  font-size: 14px;
+  line-height: 22px;
+  color: #6C757D;
+  margin-bottom: 20px
+}
+.text-center-info{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.text-center-info img{
+width:24px;
+margin-left: 9px;
+}
+.text-center-follow {
+  display: flex;
+  justify-content: center;
+  margin-right: 8px;
+  font-size: 14px; line-height: 22px
+}
+.text-center-follow span{
+color: #6C757D;;
+}
 /* 貼文渲染 */
 
-#home-header {
+/* #home-header {
   margin-top: 25px;
   margin-left: 0px;
   padding-bottom: 10px;
@@ -228,7 +650,7 @@ overflow: visible;
   font-size: 24px;
   line-height: 20px;
   color: #171725;
-}
+} */
 /* 要改名? */
 /* #tweet-button {
   font-family: "Noto Sans TC";
@@ -239,7 +661,7 @@ overflow: visible;
   background: #FF6600;
   border-radius: 50px;
 } */
-.tweets{
+/* .tweets{
   width:100%;
   border-top:1px solid  #E6ECF0;
   border-left:1px solid  #E6ECF0 ;
@@ -267,52 +689,9 @@ overflow: visible;
 
 .tweets-icons img{
   width:20px;
-}
+} */
 
-/* followings header */
-.tab-above{
-border-bottom:1px solid  #E6ECF0;
-display: flex;
-align-items: center;
-padding-left: 28px;
-}
-.tab-above div{
-  margin-top: 16px;
-  margin-left:18px;
-}
-.tab-above p{
-  font-size:13px;
-  color:#6C757D;
-}
-.personal-name{
-  font-size: 18px;
-  font-weight:700px;
-}
 
-/* followings tab */
-.tab-above,.following-tab,.following-main{
-border:1px solid  #E6ECF0;
-}
-
-nav .nav-tabs .nav-button{
-  border:none;
-}
-
-nav .nav-tabs .nav-link{
-  border:none;
-  color:#6C757D;
-  width:100px;
-  height: 52px;
-  font-size: 15px;
-  font-weight: 700px;
-}
-
-nav .nav-tabs .nav-link.active{
-opacity: 1;
-font-weight: bold;
-color: #FF6600;
-border-bottom: 2px solid #FF6600;
-}
 
 /* right-sidebar */
 
@@ -368,7 +747,6 @@ h4 {
   color: #171725;
   margin-bottom: -3px;
 }
-
 .small-account {
   height: 22px;
   font-style: normal;
@@ -377,7 +755,6 @@ h4 {
   line-height: 22px;
   color: #92929d;
 }
-
 .following-btn {
   display: flex;
   flex-direction: column;
@@ -398,7 +775,6 @@ h4 {
   padding: 0;
   border: none;
 }
-
 .follow-btn {
   display: flex;
   flex-direction: column;
@@ -414,90 +790,11 @@ h4 {
   padding: 0;
 }
 
-/* 個人主頁下方 */
-/* .nav-tabs {
-  position: relative;
-  left: 333px;
-  width: 639px;
-  height: 53px;
-} */
-
-.nav-tabs .nav-item {
-  width: 130px;
-  height: 52px;
-}
-
-.nav-tabs .nav-item .nav-link {
-  position: relative;
-  top: 11px;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 15px;
-  line-height: 22px;
-  color: #657786;
-  text-align: center;
-}
-
-/* active時啟動 */
-.nav-tabs .nav-item .nav-link.active {
-  color: #ff6600;
-  border-color: #fff #fff #ff6600;
-  border-width: 2px;
-}
-
-/* .tabs-content {
-  position: relative;
-  left: 333px;
-  padding: 0px;
-  width: 639px;
-  border: 1px;
-  border-color: transparent #e6ecf0 #e6ecf0;
-} */
-
-.each-tweet {
-  border: 1px solid #e6ecf0;
-}
-
-#tweet-icon {
-  position: relative;
-  left: 24px;
-  width: 50px;
-  height: 50px;
-}
-
-#tweet-right {
-  position: relative;
-  left: 32px;
-  padding: 0;
-}
-
-#tweet-right .header {
-  font-style: normal;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-
-#tweet-right .header span{
-  font-weight: 700;
-}
-
-#tweet-right .header .text-muted{
-  font-weight: 400;
-}
-
-#tweet-right .reply-whom {
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 22px;
-  color: #6c757d;
-  margin-bottom: 8px;
-}
 
 /* 個人主頁上方 */
 /* Admin users css */
 /* Admin users css */
-
+/*
 .hr-line {
   margin: 0px -12px;
   border: 1px solid #E6ECF0;
@@ -524,12 +821,6 @@ h4 {
   height: 314px;
   background: #f6f7f8;
   border-radius: 10px;
-}
-
-.card-main {
-  position: relative;
-  height: 210px;
-  border-bottom: 10px solid #E6ECF0;
 }
 
 .card-top {
@@ -647,184 +938,4 @@ h4 {
   margin: -8px 0px 0px 25px;
 }
 
-
-
-
-/* 個人和其他使用者profile */
-
-a {
-  text-decoration: none;
-  color: #171725;
-}
-
-.profile-header {
-  width: 639px;
-  height: 75px;
-}
-
-.profile-body {
-  width: 639px;
-  height: 400px;
-}
-
-button {
-  margin: 0;
-  padding: 0;
-  border: none;
-  outline: none;
-}
-
-.name-account-container {
-  width: auto;
-}
-
-.profile-intro {
-  font-size: 14px;
-  color: #171725;
-}
-
-.profile-edit-btn {
-  box-sizing: border-box;
-  width: 128px;
-  height: 40px;
-  background: #FFFFFF;
-  border: 1px solid #FF6600;
-  border-radius: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  color: #FF6600;
-}
-
-.profile-edit-btn:hover {
-  background: #FF6600;
-  border: none;
-  border-radius: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  color: #FFFFFF;
-}
-
-.follow-btn {
-  box-sizing: border-box;
-  width: 96px;
-  height: 40px;
-  background: #FFFFFF;
-  border: 1px solid #FF6600;
-  border-radius: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  color: #FF6600;
-}
-
-.follow-btn:hover {
-  background: #FF6600;
-  border: none;
-  border-radius: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  color: #FFFFFF;
-}
-
-.following-btn {
-  width: 96px;
-  height: 40px;
-  background: #FF6600;
-  border: none;
-  border-radius: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  color: #FFFFFF;
-}
-
-.following-btn:hover {
-  box-sizing: border-box;
-  background: #FFFFFF;
-  border: 1px solid #FF6600;
-  border-radius: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  color: #FF6600;
-}
-
-
-.profile-name {
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 26px;
-  color: #171725;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.profile-account{
-  font-size: 14px;
-  color: #92929D;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.profile-name:hover , .profile-account:hover{
-  color: #FF6600;
-}
-
-
-.profile-avatar {
-  margin-top:-80px;
-  z-index:100;
-  position:relative;
-}
-
-.followship {
-  display: flex;
-  width: 180px;
-  height: 22px;
-  gap: 5px;
-}
-
-.admin-list-group .list-group-item {
-  width: calc(100% - 10px);
-  height: 64px;
-  line-height: 64px;
-  border: none;
-}
-
-.admin-list-group .list-group-item span{
-  margin-left: 20px;
-}
-
-.admin-list-group .list-group-item a{
-  text-decoration: none;
-  color: #44444F;
-  font-weight: 700;
-}
-
-.admin-list-group .list-group-item .active{
-  color: #FF6600;
-
-}
-
-.admin-list-group .list-group-item .active img{
-  filter: invert(45%) sepia(96%) saturate(2634%) hue-rotate(360deg) brightness(101%) contrast(107%);
-}
-
-.single-line-ellipsis {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-  word-break: break-all;
-  overflow: hidden;
-}
+ */
