@@ -24,12 +24,12 @@ app.use(express.static('public'))
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: false
 }))
-// app.use(express.urlencoded({ extended: true }))
-// app.use(express.json())
-// app.use(session({ secret: SESSION_SECRET, resave: false, saveUninitialized: false }))
-// app.use(express.static('public'))
+
+app.use(express.json())
+
+
 app.use(passport.initialize())
 app.use(passport.session())
 // app.use(flash())
@@ -41,7 +41,7 @@ app.use(methodOverride('_method'))
 app.use((req, res, next) => {
   res.locals.success_messages = req.flash('success_messages')
   res.locals.error_messages = req.flash('error_messages')
-  res.locals.user = getUser(req)
+  res.locals.user = helpers.getUser(req)
   next()
 })
 

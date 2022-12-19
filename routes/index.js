@@ -11,7 +11,7 @@ const adminController = require('../controller/admin-controller')
 // 載入使用者認證 middleware/auth.js
 const { authenticated } = require('../middleware/auth')
 const { authenticatedAdmin } = require('../middleware/auth')
-//error handleler
+// error handleler
 const { generalErrorHandler } = require('../middleware/error-handler')
 
 router.get('/admin/signin', adminController.signInPage)
@@ -24,7 +24,7 @@ router.use('/admin', authenticatedAdmin, admin)
 //register
 router.get('/signin', userController.signInPage)
 router.post('/signin', passport.authenticate('local', { failureRedirect: '/signin', failureFlash: true }), userController.signIn)
-//
+
 
 //logout
 router.get('/logout', userController.logout)
@@ -37,7 +37,11 @@ router.get('/tweets', tweetController.getTweet)
 router.get('/signup', userController.signUpPage)
 router.post('/signup', userController.signUp)
 
-router.get('/users/', userController.getUserPage)
+//user setting (使用者帳戶設定)
+router.get('/users/:id/setting', userController.getSetting)
+router.put('/users/:id/setting', userController.putSetting)
+
+// router.get('/users/', userController.getUserPage)
 //users
 router.get('/users/:id/tweets', userController.getUserTweets)
 router.get('/users/:id/replies', userController.getUserReplies)
@@ -51,6 +55,6 @@ router.post('/tweets', tweetController.postTweet)
 
 // //fallback
 router.get('/', (req, res) => { res.redirect('/tweets') })
-router.use('/', generalErrorHandler)
+// router.use('/', generalErrorHandler)
 
 module.exports = router

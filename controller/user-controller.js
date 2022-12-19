@@ -1,5 +1,6 @@
 const { User, Tweet, Reply, Like, Followship } = require('../models')
 const bcrypt = require('bcryptjs')
+const helpers = require('../_helpers')
 
 const userController = {
   signInPage: (req, res) => {
@@ -77,14 +78,65 @@ const userController = {
         console.log(user)
       })
   },
-  getUserPage: (req, res, next) => {
-    res.render('personal-page')
-  }
+  // getUserPage: (req, res, next) => {
+  //   res.render('personal-page')
+  // }
+  getSetting: (req, res, next) => {
+    const currentUser = helpers.getUser(req)
+    const currentUserId = helpers.getUser(req) && helpers.getUser(req).id
+
+    if (currentUserId !== Number(req.params.id)) {
+      req.flash('error_messages', '無法修改他人資料！')
+      return res.redirect(`/users/${currentUserId}/setting`)
+    }
+
+    return User.findByPk(req.params.id, {
+      raw: true
+    })
+      .then(user => {
+        res.render('setting')
+      })
+      .catch(err => next(err))
+  },
+  putSetting: (req, res, next) => {
+    const currentUser = helpers.getUser(req)
+    const { account, name, email, password, checkPassword } = req.body
+
+    if (!account || !name || !email || !password || !checkPassword) throw new Error('所有欄位都是必填！')
+    if (password !== checkPassword) throw new Error('密碼與確認密碼不相符！')
+    if (name.length > 50) throw new Error('字數超出上限！')
+
+    return Promise.all([
+      User.findByPk(currentUser.id),
+      User.findOne({ where: { email }, raw: true }),
+      User.findOne({ where: { account }, raw: true })
+    ])
+      .then(([user, findEmail, findAccount]) => {
+        if (findAccount) {
+          if (findAccount.id !== user.id) throw new Error('account 已重複註冊！')
+        }
+
+        if (findEmail) {
+          if (findEmail.id !== user.id) throw new Error('email 已重複註冊！')
+        }
+
+        return bcrypt.hash(password, 10)
+          .then(hash => {
+            return user.update({
+              account,
+              name,
+              email,
+              password: hash
+            })
+          })
+      })
+      .then(() => {
+        req.flash('success_messages', '個人資料修改成功！')
+        return res.redirect(`/users/${currentUser.id}/tweets`)
+      })
+      .catch(err => next(err))
+    }
 }
-//我用來測試畫面的
-// getTweets: (req, res) => {
-//   res.render('followings')
-// }
 
 
 
