@@ -1,4 +1,4 @@
-const { User } = require('../models')
+const { User, Tweet, Reply, Like, Followship } = require('../models')
 const bcrypt = require('bcryptjs')
 const { getUser } = require('../_helpers')
 
@@ -54,7 +54,7 @@ const userController = {
       })
       .catch(err => next(err))
   },
-  //帳戶註冊頁面修改
+  //帳戶註冊頁面修改,尚未完成，輸入對象有問題。
   putSetting: (req, res, next) => {
     const { account, name, email, password, checkPassword } = req.body
     if (password !== checkPassword) throw new Error('密碼不相符!ヽ(#`Д´)ﾉ')
@@ -83,7 +83,42 @@ const userController = {
     // 比對兩次密碼是否重複
     // 修改成功資訊
   },
-
+  getUserTweets: (req, res, next) => {
+    const userId = req.params.id
+    return Promise.all([
+      User.findById(userId),
+      Tweet.find({ where: { userId } }),
+      Followship.find({ where: { userId } })
+    ])
+      .then(([user, tweets, followships]) => {
+        console.log(user)
+      })
+  },
+  getUserReplies: (req, res, next) => {
+    const userId = req.params.id
+    return Promise.all([
+      User.findById(userId),
+      Reply.find({ where: { userId } }),
+      Followship.find({ where: { userId } })
+    ])
+      .then(([user, replies, followships]) => {
+        console.log(user)
+      })
+  },
+  getUserLikes: (req, res, next) => {
+    const userId = req.params.id
+    return Promise.all([
+      User.findById(userId),
+      Like.find({ where: { userId } }),
+      Followship.find({ where: { userId } })
+    ])
+      .then(([user, likes, followships]) => {
+        console.log(user)
+      })
+  },
+  getUserPage: (req, res, next) => {
+    res.render('personal-page')
+  },
   //我用來測試畫面的
   getTweets: (req, res) => {
     res.render('tweets')
@@ -104,6 +139,7 @@ const userController = {
     res.render('tweet')
   }
 }
+
 
 
 module.exports = userController
