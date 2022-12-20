@@ -1,8 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const passport = require('../config/passport')
-const admin = require('./modules/admin')
-
+const { generalErrorHandler } = require('../middleware/error-handler')
 // 載入controller
 const userController = require('../controller/user-controller')
 const tweetController = require('../controller/tweet-controller')
@@ -35,28 +34,26 @@ router.post('/signup', userController.signUp)
 //followings
 // router.get('/users/followings', userController.getFollower)
 
-//user setting (使用者帳戶設定)
-// router.get('/users/:id/setting', userController.getSetting)
-// router.put('/users/:id/setting', userController.putSetting)
-
 // router.get('/users/', userController.getUserPage)
 //users
-// router.get('/users/:id/tweets', userController.getUserTweets)
-// router.get('/users/:id/replies', userController.getUserReplies)
-// router.get('/users/:id/likes', userController.getUserLikes)
-
+router.get('/users/:id/tweets', authenticated, userController.getUserTweets)
+router.get('/users/:id/replies', authenticated, userController.getUserReplies)
+router.get('/users/:id/likes', authenticated, userController.getUserLikes)
 
 //personal
 // router.get('/users/tweets', userController.getPerson)
+
 //使用者帳戶資訊，驗證不要忘記阻擋非user
 router.get('/users/:id/setting', userController.getSetting)
 router.put('/users/:id/setting', userController.putSetting)
+
 //replies
 // router.get('/users/replies', userController.reply)
+
 //tweets
-// router.get('/tweets', userController.getTweets)
-// router.get('/tweet', userController.getTweet)
-router.post('/tweets', tweetController.postTweet)
+router.get('/tweets', authenticated, tweetController.getTweets)
+router.get('/tweet', authenticated, tweetController.getTweet)
+router.post('/tweets', authenticated, tweetController.postTweet)
 
 // //fallback
 router.get('/', (req, res) => { res.redirect('/tweets') })

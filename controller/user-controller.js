@@ -84,65 +84,63 @@ const userController = {
       next(err)
     }
   },
-  // getUserTweets: (req, res, next) => {
-  //   const userId = req.params.id
-  //   return Promise.all([
-  //     User.findById(userId),
-  //     Tweet.find({ where: { userId } }),
-  //     Followship.find({ where: { userId } })
-  //   ])
-  //     .then(([user, tweets, followships]) => {
-  //       console.log(user)
-  //     })
-  // },
-  // getUserReplies: (req, res, next) => {
-  //   const userId = req.params.id
-  //   return Promise.all([
-  //     User.findById(userId),
-  //     Reply.find({ where: { userId } }),
-  //     Followship.find({ where: { userId } })
-  //   ])
-  //     .then(([user, replies, followships]) => {
-  //       console.log(user)
-  //     })
-  // },
-  // getUserLikes: (req, res, next) => {
-  //   const userId = req.params.id
-  //   return Promise.all([
-  //     User.findById(userId),
-  //     Like.find({ where: { userId } }),
-  //     Followship.find({ where: { userId } })
-  //   ])
-  //     .then(([user, likes, followships]) => {
-  //       console.log(user)
-  //     })
-  // },
-  // getUserPage: (req, res, next) => {
-  //   res.render('personal-page')
-  // }
-
-  // getUserPage: (req, res, next) => {
-  //   res.render('personal-page')
-  // },
-  // //我用來測試畫面的
-  // getTweets: (req, res) => {
-  //   res.render('tweets')
-  // },
-  // getSetting: (req, res) => {
-  //   res.render('setting')
-  // },
-  // getPerson: (req, res) => {
-  //   res.render('personal-page')
-  // },
-  // reply: (req, res) => {
-  //   res.render('replies')
-  // },
-  // getFollower: (req, res) => {
-  //   res.render('followings')
-  // },
-  // getTweet: (req, res) => {
-  //   res.render('tweet')
-  // }
+  getUserTweets: (req, res, next) => {
+    const userId = req.params.id
+    return Promise.all([
+      User.findById(userId),
+      Tweet.find({ where: { userId } }),
+      Followship.find({ where: { userId } })
+    ])
+      .then(([user, tweets, followships]) => {
+        console.log(user)
+      })
+  },
+  getUserReplies: (req, res, next) => {
+    const userId = req.params.id
+    return Promise.all([
+      User.findByPk(userId),
+      Reply.findAll({ where: { UserId: userId } }),
+      Followship.findAll({ where: { UserId: userId } })
+    ])
+      .then(([user, replies, followships]) => {
+        // console.log(user)
+        res.render('replies', { user, replies, followships })
+      })
+      .catch(err => next(err))
+  },
+  getUserLikes: (req, res, next) => {
+    const userId = req.params.id
+    return Promise.all([
+      User.findById(userId),
+      Like.find({ where: { userId } }),
+      Followship.find({ where: { userId } })
+    ])
+      .then(([user, likes, followships]) => {
+        console.log(user)
+      })
+  },
+  getUserPage: (req, res, next) => {
+    res.render('personal-page')
+  },
+  //我用來測試畫面的
+  getTweets: (req, res) => {
+    res.render('tweets')
+  },
+  getSetting: (req, res) => {
+    res.render('setting')
+  },
+  getPerson: (req, res) => {
+    res.render('personal-page')
+  },
+  reply: (req, res) => {
+    res.render('replies')
+  },
+  getFollower: (req, res) => {
+    res.render('followings')
+  },
+  getTweet: (req, res) => {
+    res.render('tweet')
+  }
 }
 
 
