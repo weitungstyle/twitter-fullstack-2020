@@ -43,8 +43,8 @@ router.post('/signup', userController.signUp)
 // router.get('/users/tweets', userController.getPerson)
 
 //使用者帳戶資訊，驗證不要忘記阻擋非user
-router.get('/users/:id/setting', userController.getSetting)
-router.put('/users/:id/setting', userController.putSetting)
+router.get('/users/:id/edit', userController.getSetting)
+router.put('/users/:id', userController.putSetting)
 
 //replies
 // router.get('/users/replies', userController.reply)

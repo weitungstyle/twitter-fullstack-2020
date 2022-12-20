@@ -6,17 +6,20 @@
       <div>
         <div class=" home-header">帳戶設定</div>
         <div class="setting-main">
-          <form class="form-setting needs-validation" action="/users/{{user.id}}/setting?_method=PUT" method="POST">
+          <form class="form-setting needs-validation" action="/users/{{user.id}}?_method=PUT" method="POST">
 
             <div class="div">
               <label for="account">帳號</label>
-              <input type="text" name="editAccount" id="account" placeholder="請輸入帳號" aria-label="User account"
+              <input type="text" name="editAccount" id="account" placeholder="請輸入帳號"  aria-label="User account"
                 value="{{user.account}}" required>
             </div>
             <div class="div">
               <label for="name">名稱</label>
-              <input type="text" name="editName" id="name" placeholder="請輸入使用者名稱" aria-label="User name" maxlength="50"
-                value="{{user.name}}" required>
+              <input type="text" name="editName" id="name" placeholder="請輸入使用者名稱" oninput="userNameCounts()"aria-label="User name" maxlength="50" value="{{user.name}}" required>
+              <div class="d-flex bd-highlight">
+                <div class="p-0 bd-highlight" id="nameEnterMessage" style="color:#FC5A5A;font-size:12px"><span>內容不可空白</span></div>
+                <div class="p-0 bd-highlight" id="nameLengthCount" style="color:#696974;font-size:12px;width: 20px;margin-right: 10px;"><span>0/50</span></div>
+              </div>
             </div>
             <div class="div">
               <label for="email">Email</label>
@@ -42,3 +45,58 @@
     </div>
   </div>
 </div>
+
+
+  {{!-- setting function --}}
+  <script>
+    const settingMain = document.querySelector('.setting-main')
+    const userAccount = document.querySelector('#account')
+    const userName = document.querySelector('#name')
+    const userEmail = document.querySelector('#email')
+    const userPassword = document.querySelector('#password')
+    const userCheckPassword = document.querySelector('#checkPassword')
+
+  // 在此抓取的 target 只有 input 有 keyup 功能
+    settingMain.addEventListener('keyup', e => {
+      const target = e.target
+      const inputValue = target.value || ''
+
+      if (target.matches('#account')) {
+        if (inputValue.length > 50) alert('帳號輸入不能超過 50 個字 !')
+        userAccount.innerText = inputValue.length
+      } else if (target.matches('#name')) {
+        if (inputValue.length > 50) alert('名字輸入不能超過 50 個字 !')
+        userName.innerText = inputValue.length
+      } else if (target.matches('#email')) {
+        if (inputValue.length > 50) alert('Email 輸入不能超過 50 個字 !')
+        userEmail.innerText = inputValue.length
+      } else if (target.matches('#password')) {
+        if (inputValue.length > 50) alert('密碼輸入不能超過 50 個字 !')
+        userPassword.innerText = inputValue.length
+      } else if (target.matches('#checkPassword')) {
+        if (inputValue.length > 50) alert('密碼再確認不能超過 50 個字 !')
+        userCheckPassword.innerText = inputValue.length
+      }
+    })
+
+
+  </script>
+
+  <script>
+    function userNameCounts() {
+      const counts = document.getElementById('name').value.length
+      const nameEnterMessage = document.getElementById('nameEnterMessage')
+      const nameLength = document.getElementById('nameLengthCount')
+      nameLength.innerText = counts + '/50'
+      if (counts > 50) {
+        nameEnterMessage.innerText = '字數超出上限！'
+        return
+      }
+      if (counts > 0 && counts <= 50) {
+        nameEnterMessage.innerText = ''
+      }
+      if (counts === 0) {
+        nameEnterMessage.innerText = '內容不可空白'
+      }
+    }
+  </script>
