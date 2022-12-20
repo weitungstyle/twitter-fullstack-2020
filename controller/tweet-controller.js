@@ -61,6 +61,9 @@ const tweetController = {
         res.render('tweets', { Tweets: data, result })
       })
       .catch(err => next(err))
+  },
+  getReplies: (req, res, next) => {
+    res.render('replies')
   }
 }
 

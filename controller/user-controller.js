@@ -105,6 +105,10 @@ const userController = {
       .then(() => res.redirect('back'))
       .catch(err => next(err))
   },
+  getTweet: (req, res, next) => {
+    User.findByPk({ where: { id: getUser(req).id }, include: Tweet, order: [[Tweet, 'createdAt', 'DESC']], nest: true, raw: true })
+      .then(user => console.log(user))
+  }
 
   // getUserTweets: (req, res, next) => {
   //   const userId = req.params.id

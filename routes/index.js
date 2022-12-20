@@ -23,10 +23,13 @@ router.get('/signup', userController.signUpPage)
 router.post('/signup', userController.signUp)
 
 //tweets
-// 測試用 
 router.get('/tweets', authenticated, tweetController.getTweets)
 router.post('/tweets', authenticated, tweetController.postTweet)
 
+//users
+router.get('/users/:id/tweets', authenticated, userController.getTweet)
+//replies
+router.get('/tweets/:id', authenticated, tweetController.getReplies)
 
 //followship
 router.post('/followships/:id', authenticated, userController.addFollowing)

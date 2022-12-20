@@ -138,6 +138,7 @@ textarea{
   padding: 12px 16px; 
   border: none;
   outline: none;
+  display: block;
 }
 /* #description{
 margin:12px 2px;
