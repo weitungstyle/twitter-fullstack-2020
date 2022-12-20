@@ -1,10 +1,6 @@
 const { User, Tweet, Reply, Like, Followship } = require('../models')
 const bcrypt = require('bcryptjs')
-<<<<<<< HEAD
-const helpers = require('../_helpers')
-=======
 const { getUser } = require('../_helpers')
->>>>>>> origin/master
 
 const userController = {
   signInPage: (req, res) => {
@@ -49,8 +45,9 @@ const userController = {
     req.logout()
     res.redirect('/signin')
   },
+  
   //註冊修改頁面
-  editSetting: (req, res, next) => {
+  getSetting: (req, res, next) => {
     return User.findByPk(req.params.id, { raw: true })
       .then(user => {
         if (!user) throw new Error("User didn't exist!")
@@ -58,126 +55,72 @@ const userController = {
       })
       .catch(err => next(err))
   },
-  //帳戶註冊頁面修改,尚未完成，輸入對象有問題。
-  putSetting: (req, res, next) => {
-    const { account, name, email, password, checkPassword } = req.body
-    if (password !== checkPassword) throw new Error('密碼不相符!ヽ(#`Д´)ﾉ')
-    if (name.length > 50) throw new Error('字數超出上限ヽ(#`Д´)ﾉ')
-    return User.findByPk(req.params.id)
-      .then(async (user) => {
-        const usedPassword = await bcrypt.compare(password, user.password)
-        if (!user) throw new Error("User didn't exist!")
-        console.log(user.email)
-        if (usedPassword) throw new Error("Reset!")
-        bcrypt.hash(password, 10)
+  //註冊修改頁面驗證
+  putSetting: async (req, res, next) => {
+    try {
+      const { editAccount, editName, editEmail, editPassword, editCheckPassword } = req.body
+      const { id, account, email } = getUser(req)
+
+      if (editPassword !== editCheckPassword) throw new Error('密碼不相符!ヽ(#`Д´)ﾉ')
+      if (editName.length > 50) throw new Error('字數超出上限ヽ(#`Д´)ﾉ，字數要在50字以內')
+      if (editAccount === account) {
+        const exitAccount = await User.findOne({ where: { account } })
+        if (exitAccount) throw new Error(' 帳號已重複註冊！')
+      }
+      if (editEmail === email) {
+        const exitEmail = await User.findOne({ where: { email } })
+        if (exitEmail) throw new Error('Email已重複註冊！')
+      }
+      const editUser = await User.findByPk(id)
+      await editUser.update({
+        account: editAccount,
+        name: editName,
+        email: editEmail,
+        password: await bcrypt.hash(editPassword, 10)
       })
-      .then(hash => {
-        // user.update({
-        //   account, name, email, password: hash
-        // })
-        console.log(hash)
-      })
-      .then(() => {
-        req.flash('success_messages', '帳戶資訊已更新')
-        res.redirect('/tweets')
-      })
-      .catch(err => next(err))
-    // name字數限制，account不能重複。
-    // 比對是否跟上次的密碼是否重複
-    // 比對兩次密碼是否重複
-    // 修改成功資訊
+      req.flash('success_messages', '成功更新！')
+      res.redirect('/tweets')
+    } catch (err) {
+      next(err)
+    }
   },
-  getUserTweets: (req, res, next) => {
-    const userId = req.params.id
-    return Promise.all([
-      User.findById(userId),
-      Tweet.find({ where: { userId } }),
-      Followship.find({ where: { userId } })
-    ])
-      .then(([user, tweets, followships]) => {
-        console.log(user)
-      })
-  },
-  getUserReplies: (req, res, next) => {
-    const userId = req.params.id
-    return Promise.all([
-      User.findById(userId),
-      Reply.find({ where: { userId } }),
-      Followship.find({ where: { userId } })
-    ])
-      .then(([user, replies, followships]) => {
-        console.log(user)
-      })
-  },
-  getUserLikes: (req, res, next) => {
-    const userId = req.params.id
-    return Promise.all([
-      User.findById(userId),
-      Like.find({ where: { userId } }),
-      Followship.find({ where: { userId } })
-    ])
-      .then(([user, likes, followships]) => {
-        console.log(user)
-      })
-  },
+  // getUserTweets: (req, res, next) => {
+  //   const userId = req.params.id
+  //   return Promise.all([
+  //     User.findById(userId),
+  //     Tweet.find({ where: { userId } }),
+  //     Followship.find({ where: { userId } })
+  //   ])
+  //     .then(([user, tweets, followships]) => {
+  //       console.log(user)
+  //     })
+  // },
+  // getUserReplies: (req, res, next) => {
+  //   const userId = req.params.id
+  //   return Promise.all([
+  //     User.findById(userId),
+  //     Reply.find({ where: { userId } }),
+  //     Followship.find({ where: { userId } })
+  //   ])
+  //     .then(([user, replies, followships]) => {
+  //       console.log(user)
+  //     })
+  // },
+  // getUserLikes: (req, res, next) => {
+  //   const userId = req.params.id
+  //   return Promise.all([
+  //     User.findById(userId),
+  //     Like.find({ where: { userId } }),
+  //     Followship.find({ where: { userId } })
+  //   ])
+  //     .then(([user, likes, followships]) => {
+  //       console.log(user)
+  //     })
+  // },
   // getUserPage: (req, res, next) => {
   //   res.render('personal-page')
   // }
-  getSetting: (req, res, next) => {
-    const currentUser = helpers.getUser(req)
-    const currentUserId = helpers.getUser(req) && helpers.getUser(req).id
 
-    if (currentUserId !== Number(req.params.id)) {
-      req.flash('error_messages', '無法修改他人資料！')
-      return res.redirect(`/users/${currentUserId}/setting`)
-    }
-
-    return User.findByPk(req.params.id, {
-      raw: true
-    })
-      .then(user => {
-        res.render('setting')
-      })
-      .catch(err => next(err))
-  },
-  putSetting: (req, res, next) => {
-    const currentUser = helpers.getUser(req)
-    const { account, name, email, password, checkPassword } = req.body
-
-    if (!account || !name || !email || !password || !checkPassword) throw new Error('所有欄位都是必填！')
-    if (password !== checkPassword) throw new Error('密碼與確認密碼不相符！')
-    if (name.length > 50) throw new Error('字數超出上限！')
-
-    return Promise.all([
-      User.findByPk(currentUser.id),
-      User.findOne({ where: { email }, raw: true }),
-      User.findOne({ where: { account }, raw: true })
-    ])
-      .then(([user, findEmail, findAccount]) => {
-        if (findAccount) {
-          if (findAccount.id !== user.id) throw new Error('account 已重複註冊！')
-        }
-
-        if (findEmail) {
-          if (findEmail.id !== user.id) throw new Error('email 已重複註冊！')
-        }
-
-        return bcrypt.hash(password, 10)
-          .then(hash => {
-            return user.update({
-              account,
-              name,
-              email,
-              password: hash
-            })
-          })
-      })
-      .then(() => {
-        req.flash('success_messages', '個人資料修改成功！')
-        return res.redirect(`/users/${currentUser.id}/tweets`)
-      })
-      .catch(err => next(err))
-    }
   // getUserPage: (req, res, next) => {
   //   res.render('personal-page')
   // },
