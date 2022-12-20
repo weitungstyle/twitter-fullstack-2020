@@ -70,6 +70,7 @@ const userController = {
         // user.update({
         //   account, name, email, password: hash
         // })
+        // console.log(hash)
       })
       .then(() => {
         req.flash('success_messages', '帳戶資訊已更新')
@@ -81,37 +82,74 @@ const userController = {
     // 比對兩次密碼是否重複
     // 修改成功資訊
   },
-  getTopUsers: (req, res, next) => {
-
-  },
   addFollowing: (req, res, next) => {
-    const { userId } = req.params
-    Promise.all([User.findByPk(userId), Followship.findOne({ where: { followerId: getUser(req).id, followingId: userId } })])
+    const { id } = req.params
+    return Promise.all([User.findByPk(id), Followship.findOne({ where: { followerId: getUser(req).id, followingId: id } })])
       .then(([user, followship]) => {
+        if (user.id === getUser(req).id) throw new Error("You can't follow yourself!")
         if (!user) throw new Error("User didn't exist!")
         if (followship) throw new Error('You are already following this user!')
         return Followship.create({
-          followerId: getUser(req).id, followingId: userId
+          followerId: getUser(req).id, followingId: id
         })
       })
       .then(() => res.redirect('back'))
       .catch(err => next(err))
   },
   removeFollowing: (req, res, next) => {
-    return Followship.findOne({ where: { followerId: req.user.id, followingId: req.params.userId } })
+    return Followship.findOne({ where: { followerId: getUser(req).id, followingId: req.params.id } })
       .then(followship => {
         if (!followship) throw new Error("You haven't followed this user!")
         followship.destroy()
       })
       .then(() => res.redirect('back'))
       .catch(err => next(err))
-  }
+  },
+
+  // getUserTweets: (req, res, next) => {
+  //   const userId = req.params.id
+  //   return Promise.all([
+  //     User.findById(userId),
+  //     Tweet.find({ where: { userId } }),
+  //     Followship.find({ where: { userId } })
+  //   ])
+  //     .then(([user, tweets, followships]) => {
+  //       console.log(user)
+  //     })
+  // },
+  // getUserReplies: (req, res, next) => {
+  //   const userId = req.params.id
+  //   return Promise.all([
+  //     User.findByPk(userId),
+  //     Reply.findAll({ where: { UserId: userId } }),
+  //     Followship.findAll({ where: { UserId: userId } })
+  //   ])
+  //     .then(([user, replies, followships]) => {
+  //       // console.log(user)
+  //       res.render('replies', { user, replies, followships })
+  //     })
+  //     .catch(err => next(err))
+  // },
+  // getUserLikes: (req, res, next) => {
+  //   const userId = req.params.id
+  //   return Promise.all([
+  //     User.findById(userId),
+  //     Like.find({ where: { userId } }),
+  //     Followship.find({ where: { userId } })
+  //   ])
+  //     .then(([user, likes, followships]) => {
+  //       console.log(user)
+  //     })
+  // },
   // getFollowers(req, res, next) {
   //   const id = getUser(req).id
   //   return Followship.findAll({ where: { followerId: id }, raw: true })
 
   //     .then(a => a.forEach(aa => console.log(aa.followingId)))
 
+  // // },
+  // getUserPage: (req, res, next) => {
+  //   res.render('personal-page')
   // // },
   // getUserPage: (req, res, next) => {
   //   res.render('personal-page')
