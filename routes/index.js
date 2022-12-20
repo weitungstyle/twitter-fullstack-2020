@@ -35,15 +35,15 @@ router.post('/signup', userController.signUp)
 
 router.get('/users/', userController.getUserPage)
 //users
-router.get('/users/:id/tweets', userController.getUserTweets)
-router.get('/users/:id/replies', userController.getUserReplies)
-router.get('/users/:id/likes', userController.getUserLikes)
+router.get('/users/:id/tweets', authenticated, userController.getUserTweets)
+router.get('/users/:id/replies', authenticated, userController.getUserReplies)
+router.get('/users/:id/likes', authenticated, userController.getUserLikes)
 
 
 //tweets
-// router.get('/tweets', userController.getTweets)
-router.get('/tweets', tweetController.getTweet)
-router.post('/tweets', tweetController.postTweet)
+router.get('/tweets', authenticated, tweetController.getTweets)
+router.get('/tweet', authenticated, tweetController.getTweet)
+router.post('/tweets', authenticated, tweetController.postTweet)
 
 // //fallback
 router.get('/', (req, res) => { res.redirect('/tweets') })
