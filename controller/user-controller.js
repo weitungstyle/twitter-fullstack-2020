@@ -61,15 +61,28 @@ const userController = {
       const { editAccount, editName, editEmail, editPassword, editCheckPassword } = req.body
       const { id, account, email } = getUser(req)
 
-      if (editPassword !== editCheckPassword) throw new Error('密碼不相符!ヽ(#`Д´)ﾉ')
-      if (editName.length > 50) throw new Error('字數超出上限ヽ(#`Д´)ﾉ，字數要在50字以內')
+      if (editPassword !== editCheckPassword) {
+        req.flash('error_messages', '密碼不相符!ヽ(#`Д´)ﾉ')
+        return res.redirect('back')
+      }
+      if (editName.length > 50) {
+        req.flash('error_messages', '字數超出上限ヽ(#`Д´)ﾉ，字數要在50字以內')
+        return res.redirect('back')
+      }
+
       if (editAccount === account) {
         const exitAccount = await User.findOne({ where: { account } })
-        if (exitAccount) throw new Error(' 帳號已重複註冊！')
+        if (exitAccount) {
+          req.flash('error_messages', ' 帳號已重複註冊！')
+          return res.redirect('back')
+        }
       }
       if (editEmail === email) {
         const exitEmail = await User.findOne({ where: { email } })
-        if (exitEmail) throw new Error('Email已重複註冊！')
+        if (exitEmail) {
+          req.flash('error_messages', 'Email已重複註冊！')
+          return res.redirect('back')
+        }
       }
       const editUser = await User.findByPk(id)
       await editUser.update({
