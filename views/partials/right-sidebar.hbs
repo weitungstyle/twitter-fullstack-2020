@@ -1,0 +1,39 @@
+<div class="col-3 border-start" style="height: 100vh">
+  <div class="popular-container">
+    <div class="popular-title">
+      <h4>推薦跟隨</h4>
+    </div>
+    <ul class="popular-list-group p-3">
+      <li class="list-group-item d-flex align-items-start m-0 mb-4">
+        <div class="user-icon">
+          <img src="/images/icon/User Photo.png" alt="" />
+        </div>
+        <div class="ms-2" style="width: auto; margin-right: 8px">
+          <div class="popular-name">Pizza Huttttt</div>
+          <small class="small-account single-line-ellipsis">@pizzahut</small>
+        </div>
+        {{#if isFollowed}}
+        <form action="/followships/{{this.User.id}}?_method=DELETE" method=" POST">
+          <button type="submit" class="following-btn">正在跟隨</button>
+        </form>
+        {{else}}
+        <form action="/followships/{{this.User.id}}" method="POST">
+          <button type="submit" class="follow-btn">跟隨</button>
+        </form>
+        {{/if}}
+      </li>
+      <li class="list-group-item d-flex align-items-start m-0 mb-4">
+        <div class="user-icon">
+          <img src="/images/icon/User Photo.png" alt="" />
+        </div>
+        <div class="ms-2" style="width: auto; margin-right: 8px">
+          <div class="popular-name single-line-ellipsis">MasterCard</div>
+          <small class="small-account single-line-ellipsis">@MasterCarddd</small>
+        </div>
+        <form action="#" method="POST">
+          <button type="submit" class="follow-btn">跟隨</button>
+        </form>
+      </li>
+    </ul>
+  </div>
+</div>

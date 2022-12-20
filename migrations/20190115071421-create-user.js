@@ -10,11 +10,9 @@ module.exports = {
       },
       account: {
         type: Sequelize.STRING,
-        // allowNull: false
       },
       email: {
         type: Sequelize.STRING,
-        // allowNull: false
       },
       password: {
         type: Sequelize.STRING
@@ -25,7 +23,7 @@ module.exports = {
       avatar: {
         type: Sequelize.STRING
       },
-      background: {
+      cover: {
         type: Sequelize.STRING
       },
       introduction: {
