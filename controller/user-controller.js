@@ -45,7 +45,7 @@ const userController = {
     req.logout()
     res.redirect('/signin')
   },
-  
+
   //註冊修改頁面
   getSetting: (req, res, next) => {
     return User.findByPk(req.params.id, { raw: true })
@@ -62,11 +62,11 @@ const userController = {
       const { id, account, email } = getUser(req)
 
       if (editPassword !== editCheckPassword) {
-        req.flash('error_messages', '密碼不相符!ヽ(#`Д´)ﾉ')
+        req.flash('error_messages', '密碼不相符!ヽ(#`Д´)ﾉ請重新輸入')
         return res.redirect('back')
       }
       if (editName.length > 50) {
-        req.flash('error_messages', '字數超出上限ヽ(#`Д´)ﾉ，字數要在50字以內')
+        req.flash('error_messages', '字數超出上限ヽ(#`Д´)ﾉ字數要在50字以內')
         return res.redirect('back')
       }
 
