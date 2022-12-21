@@ -1,10 +1,16 @@
 const express = require('express')
 const router = express.Router()
 const passport = require('../config/passport')
+
 const { generalErrorHandler } = require('../middleware/error-handler')
+const { authenticated } = require('../middleware/auth')
+const { authenticatedAdmin } = require('../middleware/auth')
+
 // 載入controller
 const userController = require('../controller/user-controller')
 const tweetController = require('../controller/tweet-controller')
+const replyController = require('../controller/reply-controller')
+const admin = require('./modules/admin')
 
 
 // 載入使用者認證 middleware/auth.js
@@ -14,13 +20,9 @@ const { authenticatedAdmin } = require('../middleware/auth')
 // router.use('/admin', admin)
 
 
-
-//register
+//signin, logout
 router.get('/signin', userController.signInPage)
 router.post('/signin', passport.authenticate('local', { failureRedirect: '/signin', failureFlash: true }), userController.signIn)
-
-
-//logout
 router.get('/logout', userController.logout)
 
 // Tweets
@@ -35,9 +37,11 @@ router.post('/signup', userController.signUp)
 
 // router.get('/users/', userController.getUserPage)
 //users
-// router.get('/users/:id/tweets', authenticated, userController.getUserTweets)
-// router.get('/users/:id/replies', authenticated, userController.getUserReplies)
-// router.get('/users/:id/likes', authenticated, userController.getUserLikes)
+router.get('/users/:id/tweets', authenticated, userController.getUserTweets)
+router.get('/users/:id/replies', authenticated, userController.getUserReplies)
+router.get('/users/:id/likes', authenticated, userController.getUserLikes)
+router.get('/users/:id/following', userController.getUserFollowing)
+router.get('/users/:id/follower', userController.getUserFollower)
 
 //personal
 // router.get('/users/tweets', userController.getPerson)
@@ -49,12 +53,15 @@ router.put('/users/:id', userController.putSetting)
 //replies
 // router.get('/users/replies', userController.reply)
 
+//reply
+router.get('/tweets/:id', authenticated, replyController.getReplies)
+
 //tweets
 router.get('/tweets', authenticated, tweetController.getTweets)
-router.get('/tweet', authenticated, tweetController.getTweet)
 router.post('/tweets', authenticated, tweetController.postTweet)
 
-// //fallback
+
+//fallback
 router.get('/', (req, res) => { res.redirect('/tweets') })
 // router.use('/', generalErrorHandler)
 
