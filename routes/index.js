@@ -1,46 +1,48 @@
 const express = require('express')
 const router = express.Router()
 const passport = require('../config/passport')
-const admin = require('./modules/admin')
+const { generalErrorHandler } = require('../middleware/error-handler')
+const { authenticated } = require('../middleware/auth')
+const { authenticatedAdmin } = require('../middleware/auth')
+// 載入controller
 const userController = require('../controller/user-controller')
 const tweetController = require('../controller/tweet-controller')
-// 載入使用者認證 middleware/auth.js
-const { authenticated } = require('../middleware/auth')
-//error handleler
-const { generalErrorHandler } = require('../middleware/error-handler')
+const replyController = require('../controller/reply-controller')
+const admin = require('./modules/admin')
 
-router.use('/admin', admin)
-
-//signin
+//signin, logout
 router.get('/signin', userController.signInPage)
 router.post('/signin', passport.authenticate('local', { failureRedirect: '/signin', failureFlash: true }), userController.signIn)
-
-//logout
 router.get('/logout', userController.logout)
 
 //register
 router.get('/signup', userController.signUpPage)
 router.post('/signup', userController.signUp)
 
+//users
+router.get('/users/:id/tweets', authenticated, userController.getUserTweets)
+router.get('/users/:id/replies', authenticated, userController.getUserReplies)
+router.get('/users/:id/likes', authenticated, userController.getUserLikes)
+router.get('/users/:id/following', userController.getUserFollowing)
+router.get('/users/:id/follower', userController.getUserFollower)
+
+//使用者帳戶資訊，驗證不要忘記阻擋非user
+router.get('/users/:id/edit', userController.getSetting)
+router.put('/users/:id', userController.putSetting)
+
+//reply
+router.get('/tweets/:id', authenticated, replyController.getReplies)
+
 //tweets
 router.get('/tweets', authenticated, tweetController.getTweets)
 router.post('/tweets', authenticated, tweetController.postTweet)
-
-//users
-router.get('/users/:id/tweets', authenticated, userController.getTweet)
-//replies
-router.get('/tweets/:id', authenticated, tweetController.getReplies)
 
 //followship
 router.post('/followships', authenticated, userController.addFollowing)
 router.delete('/followships', authenticated, userController.removeFollowing)
 
-// router.get('/users/:id/tweets', authenticated, userController.getUserTweets)
-// router.get('/users/:id/replies', authenticated, userController.getUserReplies)
-// router.get('/users/:id/likes', authenticated, userController.getUserLikes)
-
 // //fallback
 router.get('/', (req, res) => { res.redirect('/tweets') })
-router.use('/', generalErrorHandler)
+// router.use('/', generalErrorHandler)
 
 module.exports = router
