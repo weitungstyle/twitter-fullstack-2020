@@ -1,4 +1,4 @@
-<li class="list-group-item d-flex justify-content-around m-0 mb-4">
+<li class="list-group-item d-flex justify-content-between m-0 mb-4">
   <div class="user-icon">
     {{#if this.avatar}}
     <img src="{{this.avatar}}" alt="avatar" class="user-avatar">
@@ -12,13 +12,13 @@
   </div>
   <div>
     {{#if this.isFollowed}}
-    <form action="/followships/{{this.id}}?_method=DELETE" method="POST">
-      <button type="submit" class="following-btn">正在跟隨</button>
+    <form action="/followships?_method=DELETE" method="POST">
+      <button type="submit" name="id" value="{{this.id}}" class="following-btn">正在跟隨</button>
       <span class="followCount" style="">人數:{{this.followCount}}</span>
     </form>
     {{else}}
-    <form action="/followships/{{this.id}}" method="POST">
-      <button type="submit" class="follow-btn">跟隨</button>
+    <form action="/followships" method="POST">
+      <button type="submit" name="id" value="{{this.id}}" class="follow-btn">跟隨</button>
       <span class="followCount">人數:{{this.followCount}}</span>
     </form>
     {{/if}}

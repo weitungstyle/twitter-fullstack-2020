@@ -32,8 +32,8 @@ router.get('/users/:id/tweets', authenticated, userController.getTweet)
 router.get('/tweets/:id', authenticated, tweetController.getReplies)
 
 //followship
-router.post('/followships/:id', authenticated, userController.addFollowing)
-router.delete('/followships/:id', authenticated, userController.removeFollowing)
+router.post('/followships', authenticated, userController.addFollowing)
+router.delete('/followships', authenticated, userController.removeFollowing)
 
 // router.get('/users/:id/tweets', authenticated, userController.getUserTweets)
 // router.get('/users/:id/replies', authenticated, userController.getUserReplies)
