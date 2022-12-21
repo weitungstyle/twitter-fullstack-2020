@@ -139,6 +139,9 @@ textarea{
   border: none;
   outline: none;
   display: block;
+  /* white-space: pre-wrap;
+  word-break: normal;
+  overflow: hidden; */
 }
 /* #description{
 margin:12px 2px;

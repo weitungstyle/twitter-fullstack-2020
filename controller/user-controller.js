@@ -106,8 +106,12 @@ const userController = {
       .catch(err => next(err))
   },
   getTweet: (req, res, next) => {
-    User.findByPk({ where: { id: getUser(req).id }, include: Tweet, order: [[Tweet, 'createdAt', 'DESC']], nest: true, raw: true })
-      .then(user => console.log(user))
+    // const id = getUser(req).id
+    // return User.findByPk(id, { include: [Tweet], order: [[Tweet, 'createdAt', 'DESC']], nest: true, raw: true })
+    //   .then(user => {
+    //     const replys=user.map()
+    //   })
+    res.render('personal-page')
   }
 
   // getUserTweets: (req, res, next) => {

@@ -13,7 +13,7 @@
             <img src="/images/icon/User Photo.png" class="user-avatar">
             <div>
               <form action="/tweets" method="POST">
-                <textarea style="resize:none;width:400px; " type="text" name="description" id="description"
+                <textarea style="resize:none;width:400px;" type="text" name="description" id="description"
                   placeholder="有什麼新鮮事？" oninput="checkLength(this)" required></textarea>
                 <div class="text-end">
                   <span id="limit-count" style="color:#C4C4C4;">
@@ -46,7 +46,8 @@
               </div>
               <div class="tweets-content">
                 <a href="/tweets/{{this.User.id}}" id="toReply" class="card-text">
-                  {{this.description}}
+                  <span
+                    style="white-space: pre-line;overflow:hidden;word-break:keep-all;margin-right:10px;">{{this.description}}</span>
                 </a>
               </div>
               <div class="tweets-icons">
