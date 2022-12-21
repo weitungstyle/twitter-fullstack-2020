@@ -13,9 +13,6 @@ const replyController = require('../controller/reply-controller')
 const admin = require('./modules/admin')
 
 
-// 載入使用者認證 middleware/auth.js
-const { authenticated } = require('../middleware/auth')
-const { authenticatedAdmin } = require('../middleware/auth')
 // error handleler
 // router.use('/admin', admin)
 
