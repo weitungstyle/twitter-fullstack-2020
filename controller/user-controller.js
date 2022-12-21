@@ -193,9 +193,6 @@ const userController = {
     //   .then(() => res.redirect('back'))
     //   .catch(err => next(err))
   },
-  getTweet: (req, res, next) => {
-    res.render('personal-page')
-  },
   getUserReplies: (req, res, next) => {
     const loginUserId = getUser(req).id
     const queryUserId = req.params.id
@@ -256,7 +253,6 @@ const userController = {
     ])
       .then(([user, likes]) => {
         res.render('user-likes', { user, likes })
-        console.log(likes)
       })
   },
   getUserFollowing: (req, res, next) => {

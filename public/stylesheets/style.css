@@ -359,7 +359,7 @@ margin-right: 133px;
 }
 
 .reply-box{
-  display: flex;
+  /* display: flex; */
   position: relative;
   /* left: 16px; */
   padding: 0;
