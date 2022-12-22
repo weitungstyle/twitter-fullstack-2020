@@ -103,6 +103,7 @@ const userController = {
     const queryUserId = req.params.id
     return Promise.all([
       User.findByPk(queryUserId, {
+        include: Like,
         attributes: {
           include: [
             [sequelize.literal(`(SELECT COUNT(*) FROM Followships WHERE following_id = User.id)`), 'followerCount'],
@@ -114,6 +115,7 @@ const userController = {
         raw: true
       }),
       Tweet.findAll({
+        include: Like,
         attributes: {
           include: [
             [sequelize.literal(`(SELECT COUNT(*) FROM Replies WHERE tweet_id = Tweet.id)`), 'repliesCount'],
@@ -128,6 +130,13 @@ const userController = {
       })
     ])
       .then(([user, tweets]) => {
+        const results = tweets.map(t => ({
+          ...t,
+          // isLiked: req.user.Likes.some(l => l.UserId === queryUserId)
+        }))
+        // console.log(results)
+        console.log('user', user.Likes)
+        // console.log('tweets', tweets)
         res.render('user-tweets', { user, tweets })
       })
       .catch(err => next(err))
@@ -135,7 +144,6 @@ const userController = {
   addFollowing: (req, res, next) => {
     const loginUserId = Number(helpers.getUser(req).id)
     const followingId = Number(req.body.id)
-    console.log('addFollowing', followingId)
     if (loginUserId === followingId) {
       req.flash('error_messages', "You can't follow yourself!")
       return res.redirect(200, 'back')
@@ -163,7 +171,6 @@ const userController = {
   removeFollowing: (req, res, next) => {
     const loginUserId = Number(helpers.getUser(req).id)
     const followingId = Number(req.params.id)
-    console.log('removeFollowing', followingId)
     Followship.findOne({
       where: {
         followerId: loginUserId,
@@ -238,7 +245,6 @@ const userController = {
       })
     ])
       .then(([user, likes]) => {
-        console.log(user, likes)
         res.render('user-likes', { user, likes })
       })
       .catch(err => next(err))

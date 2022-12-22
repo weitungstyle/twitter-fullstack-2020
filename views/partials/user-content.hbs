@@ -28,14 +28,14 @@
         </div>
         <div class="tweets-icons">
           <a><img src="/images/basic/white/reply.svg">{{this.repliesCount}}</a>
-          {{#ifCond this.isLiked false}}
-          <form action="/tweets/{{this.Tweet.id}}/like" method="POST">
+          {{#ifCond this.isliked 0}}
+          <form action="/tweets/{{this.id}}/like" method="POST">
             <label for="" style="display:inline-flex;">
               <input type="image" style="width:14px" src="/images/basic/white/like.svg">
             </label>
           </form>
           {{else}}
-          <form action="/tweets/{{this.Tweet.id}}/unlike" method="POST">
+          <form action="/tweets/{{this.id}}/unlike" method="POST">
             <label for="" style="display:inline-flex;">
               <input type="image" style="width:13.4px;text-align=center;" src="/images/basic/isliked.svg">
             </label>
@@ -92,7 +92,7 @@
         </div>
         <div class="tweets-icons">
           <a><img src="/images/basic/white/reply.svg">{{this.Tweet.repliesCount}}</a>
-          {{#ifCond this.isLiked false}}
+          {{#ifCond this.Tweet.isliked false}}
           <form action="/tweets/{{this.Tweet.id}}/like" method="POST">
             <label for="" style="display:inline-flex;">
               <input type="image" style="width:14px" src="/images/basic/white/like.svg">
@@ -105,7 +105,7 @@
             </label>
           </form>
           {{/ifCond}}
-          {{this.Tweet.repliesCount}}
+          {{this.Tweet.likesCount}}
         </div>
       </div>
     </div>
