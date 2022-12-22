@@ -47,15 +47,15 @@
           class="user-avatar">
         <span class="tAR-name">{{this.Followings.name}}</span>
         <div class="btn-position">
-          {{!-- {{#if isFollowed}} --}}
-          {{!-- <form action="#" method="POST">
-            <button type="submit" class="following-btn">正在跟隨</button>
+          {{#if this.isFollowed}}
+          <form action="/followships/{{this.Followings.id}}?_method=DELETE" method="POST">
+            <button type="submit" name="id" value="{{this.Followings.id}}" class="following-btn">正在跟隨</button>
           </form>
-          {{else}}--}}
-          <form action="#" method="POST">
-            <button type="submit" class="follow-btn">跟隨</button>
+          {{else}}
+          <form action="/followships" method="POST">
+            <button type="submit" name="id" value="{{this.Followings.id}}" class="follow-btn">跟隨</button>
           </form>
-          {{!--{{/if}} --}}
+          {{/if}}
         </div>
         <p class="tweets-content">
           {{this.Followings.introduction}}

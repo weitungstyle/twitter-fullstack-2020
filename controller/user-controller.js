@@ -272,8 +272,7 @@ const userController = {
           ...f,
           isFollowed: true
         }))
-        console.log(results)
-        res.render('following', { user, followings })
+        res.render('following', { user, followings: results })
       }
       )
       .catch(err => next(err))
