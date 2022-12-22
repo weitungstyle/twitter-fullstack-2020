@@ -31,7 +31,8 @@ router.get('/users/:id/edit', userController.getSetting)
 router.put('/users/:id', userController.putSetting)
 
 //reply
-router.get('/tweets/:id', authenticated, replyController.getReplies)
+router.get('/tweets/:id/replies', authenticated, replyController.getReplies)
+router.post('/tweets/:id/replies', authenticated, replyController.postReplies)
 
 //tweets
 router.get('/tweets', authenticated, tweetController.getTweets)
@@ -43,6 +44,6 @@ router.delete('/followships', authenticated, userController.removeFollowing)
 
 // //fallback
 router.get('/', (req, res) => { res.redirect('/tweets') })
-// router.use('/', generalErrorHandler)
+router.use('/', generalErrorHandler)
 
 module.exports = router
