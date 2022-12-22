@@ -46,7 +46,7 @@
 
 {{!-- user profile Modal --}}
 <div class="modal" id="edit-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <form action="/api/users/{{user.id}}" method="POST" id="edit-modal-form" enctype="multipart/form-data">
+  <form action="/api/users/{{user.id}}" method="POST" id="edit-modal-form">
     <div class="modal-dialog modal-lg" id="edit-modal-content" role="document"></div>
   </form>
 </div>
@@ -55,7 +55,6 @@
 
 
 {{!-- edit User info function --}}
-<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <script>
 
   // 編輯 user avatar and background img
