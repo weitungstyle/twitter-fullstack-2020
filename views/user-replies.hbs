@@ -12,9 +12,7 @@
         </div>
         <div class="profile-body">
           <div class="profile-cover">
-            <img
-              src="{{#if user.cover}} {{user.cover}} {{else}}/images/modal-cover.png{{/if}}"
-              alt="cover">
+            <img src="{{#if user.cover}} {{user.cover}} {{else}}/images/modal-cover.png{{/if}}" alt="cover">
           </div>
           <div class="profile-avatar">
             <img src="{{#if user.avatar}} {{user.avatar}} {{else}}/images/icon/User Photo.png{{/if}}">
@@ -28,16 +26,16 @@
               {{user.introduction}}
             </p>
             <div class="follow-ship">
-              <a href="/users/{{user.id}}/following">
+              <a href="/users/{{user.id}}/followings">
                 <p><span>{{user.followingCount}}個</span>跟隨中</p>
               </a>
-              <a href="/users/{{user.id}}/follower">
+              <a href="/users/{{user.id}}/followers">
                 <p><span>{{user.followerCount}}位</span>跟隨者</p>
               </a>
             </div>
           </div>
         </div>
-      {{> user-content route="replies"}}
+        {{> user-content route="replies"}}
       </div>
     </div>
     {{> right-sidebar}}
@@ -47,7 +45,7 @@
 
 {{!-- user profile Modal --}}
 <div class="modal fade" id="edit-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <form action="/api/users/{{user.id}}?_method=PUT" method="POST" enctype="multipart/form-data">
+  <form action="/api/users/{{user.id}}" method="POST" enctype="multipart/form-data">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content prof">
         <div class="pro-form-header">
