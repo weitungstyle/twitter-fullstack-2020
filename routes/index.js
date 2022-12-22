@@ -6,11 +6,13 @@ const admin = require('./modules/admin')
 const { generalErrorHandler } = require('../middleware/error-handler')
 const { authenticated } = require('../middleware/auth')
 
+
 // 載入controller
 const userController = require('../controller/user-controller')
 const tweetController = require('../controller/tweet-controller')
 const replyController = require('../controller/reply-controller')
 const apiController = require('../controller/api-controller')
+
 
 
 // const upload = require('../middleware/multer')
@@ -34,6 +36,9 @@ router.get('/users/:id/followers', userController.getUserFollower)
 
 router.get('/api/users/:id', apiController.getUserAPI)
 router.post('/api/users/:id', apiController.postUserAPI)
+
+// router.get('/api/users/:id', userController.getUserAPI)
+// router.post('/api/users/:id', userController.postUserAPI)
 
 //使用者帳戶資訊，驗證不要忘記阻擋非user
 router.get('/users/:id/edit', userController.getSetting)
