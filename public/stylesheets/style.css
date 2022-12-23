@@ -230,13 +230,11 @@ word-break: normal;
 overflow: hidden; */
 }
 
-/* #description{
-margin:12px 2px;
-border:0;
-background-color: rgba(0, 0, 0, 0);
-font-size:16px;
-outline: none;
-} */
+.delPosition{
+  position: absolute;
+  right:0;
+  top:0;
+}
 #description::placeholder{
 color:#B5B5BE;
 font-size:18px;
@@ -829,18 +827,17 @@ margin-top: calc(100vh - 280px);
 display: flex;
 justify-content: center;
 }
-
-.admin-tweets,
-.admin-users {
-border: 1px solid #E6ECF0;
+.admin-main{
+height: calc(100vh - 76px); 
+max-height: calc(100vh - 76px); 
+}
+.admin-tweets,.admin-users {
 overflow-y: auto;
 }
-
 .admin-users::-webkit-scrollbar,
 .admin-tweets::-webkit-scrollbar {
 width: 6px;
 }
-
 .admin-users::-webkit-scrollbar-thumb,
 .admin-tweets::-webkit-scrollbar-thumb {
 border-radius: 3px;
