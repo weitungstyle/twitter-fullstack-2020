@@ -6,14 +6,13 @@
       <div>
         <div class="home-header">帳戶設定</div>
         <div class="setting-main">
-          <form class="form-setting needs-validation" action="/users/{{user.id}}?_method=PUT" name="formSetting"
-            id="formSetting" method="POST">
+          <form class="form-setting needs-validation novalidate " action="/users/{{user.id}}?_method=PUT"
+            name="formSetting" id="formSetting" method="POST">
             <div>
               <label for="account">帳號</label>
               <input type="text" name="editAccount" id="account" placeholder="請輸入帳號" aria-label="User account"
                 value="{{user.account}}">
-              <div class="valid-feedback"></div>
-              <div class="invalid-feedback"></div>
+              <span class="invalid-feedback">內容不可空白</span>
             </div>
             <div>
               <label for="name">名稱</label>
@@ -34,7 +33,7 @@
               <input type="password" name="editCheckPassword" id="checkPassword" placeholder="請再次輸入密碼"
                 aria-label="Confirm user password">
             </div>
-            <button type="submit" id="submitBtn">儲存</button>
+            <button type="submit" id="submitBtn" onclick="validTest()">儲存</button>
           </form>
         </div>
       </div>
@@ -54,7 +53,7 @@
     nameLength.innerText = counts + '/50'
   }
   //輸入不可為空白
-  function vaildTest() {
+  function validTest() {
     const submitBtn = document.getElementById(submitBtn)
     const formSetting = document.getElementById(formSetting)
     const name = document.getElementById(name)
@@ -63,17 +62,28 @@
     const password = document.getElementById(password)
     const checkPassword = document.getElementById(checkPassword)
 
-    formSetting.addEventListener("submit", function onFormSubmitted(event) {
-      event.preventDefault();
-      event.stopPropagation();
+    //   submitBtn.addEventListener('click', function onSubmitButtonClicked(event) {
+    //     formSetting.classList.add('was-validated')
+    //   })
 
-      formSetting.querySelectorAll("input").forEach((element) => {
-        if (name || account || email || password || checkPassword === '') {
-          const feedback = element.parentElement.querySelector(".invalid-feedback");
-          feedback.textContent = element.validationMessage;
-        }
-      });
-    });
+    //   formSetting.addEventListener('submit', function onFormSubmit(event) {
+    //     if (!formSetting.checkValidity()) {
+    //       event.preventDefault()
+    //      event.stopPropagation()
+    //    }
+    //   })
+    //  formSetting.addEventListener("submit", function onFormSubmitted(event) {
+    //  event.preventDefault();
+    //   event.stopPropagation();
+    //   formSetting.querySelectorAll("input").forEach((element) => {
+    //    console.log(element)
+    //   if (element === '') {
+
+    //     const feedback = element.parentElement.querySelector(".invalid-feedback");
+    //    feedback.textContent = element.validationMessage;
+    //     }
+
+    //    });  });
     //submitBtn.addEventListener('click', function clickCheck(event) {
     //  if (name || account || email || password || checkPassword === '') {
     //   formSetting.classList.add('was-validated')

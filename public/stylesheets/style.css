@@ -84,10 +84,51 @@ padding: 5px;
 border-bottom: 2px solid #50B5FF;
 }
 /* 表單驗證 */
-input:invalid {
+/* input:invalid {
+  border-bottom: 1px solid red;
+} */
+/* form.was-validated input:invalid {
   border-bottom: 1px solid red;
 }
+.invalid-feedback{
+  display: none;
+}
+.invalid-feedback {
+  color: red
+}
+form.was-validated .form-control:invalid ~ .invalid-feedback,
+form.was-validated .form-control:valid ~ .valid-feedback {
+  display: initial;
+} 
+/* .invalid-feedback.was-validated{
+    display: flex;
+  justify-content: end;
+  color: red;
+  font-size:12px;
+  margin-right: 10px;
+} */
+/* form.was-validated input:valid {
+  border-bottom: 1px solid green;
+} */
+form.was-validated .input:invalid {
+  border-bottom: 1px solid #FC5A5A;
+  border-radius: 0px 0px 4px 4px;
+}
 
+.invalid-feedback {
+  display: none;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 20px;
+}
+
+.invalid-feedback {
+  color: #FC5A5A;
+}
+
+form.was-validated .input:invalid ~ .invalid-feedback {
+  display: initial;
+}
 #login-button {
 border-radius: 50px;
 border: none;
