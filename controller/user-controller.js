@@ -133,14 +133,9 @@ const userController = {
         include: [{ model: User, as: 'Followers' }]
       })
     ])
-      .then(([user, tweets, users]) => {
-        const results = tweets.map(t => ({
-          ...t,
-          // isLiked: req.user.Likes.some(l => l.UserId === queryUserId)
-        }))
-        // console.log(results)
-        // console.log('user', user.Likes)
-        // console.log('tweets', tweets)
+      .then(([currentUser, tweets, users]) => {
+        console.log('c', currentUser)
+        console.log('a', req.user)
         const result = users
           .map(user => ({
             ...user.toJSON(),
@@ -148,7 +143,7 @@ const userController = {
             isFollowed: helpers.getUser(req).Followings.some(f => f.id === user.id)
           }))
           .sort((a, b) => b.followCount - a.followCount)
-        res.render('user-tweets', { user, tweets, result })
+        res.render('user-tweets', { currentUser, tweets, result })
       })
       .catch(err => next(err))
   },
