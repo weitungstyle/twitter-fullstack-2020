@@ -84,37 +84,22 @@ padding: 5px;
 border-bottom: 2px solid #50B5FF;
 }
 /* 表單驗證 */
-/* input:invalid {
-border-bottom: 1px solid red;
-} */
-/* form.was-validated input:invalid {
+form.was-validated input:invalid {
 border-bottom: 1px solid red;
 }
 .invalid-feedback{
 display: none;
-}
+} 
 .invalid-feedback {
 color: red
 }
-form.was-validated .form-control:invalid ~ .invalid-feedback,
-form.was-validated .form-control:valid ~ .valid-feedback {
+form.was-validated .form-control:invalid ~ .invalid-feedback {
 display: initial;
 } 
-/* .invalid-feedback.was-validated{
-display: flex;
-justify-content: end;
-color: red;
-font-size:12px;
-margin-right: 10px;
-} */
-/* form.was-validated input:valid {
-border-bottom: 1px solid green;
-} */
-form.was-validated .input:invalid {
+/* form.was-validated .input:invalid {
 border-bottom: 1px solid #FC5A5A;
 border-radius: 0px 0px 4px 4px;
-}
-
+} */
 .invalid-feedback {
 display: none;
 font-weight: 500;
@@ -720,9 +705,6 @@ position: absolute;
 right: 0;
 bottom: 0;
 }
-#formSetting{
-width:90%;
-}
 .form-setting div{
 background-color: #F5F8FA;
 margin-top: 40px;
@@ -1322,6 +1304,7 @@ padding: 0;
 .mes-alert{
 margin: 10px;
 position: absolute;
+z-index: 1;
 right:0;
 }
 .notiMes{
