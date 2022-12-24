@@ -17,9 +17,7 @@ const userController = {
   },
   signUp: (req, res, next) => {
     const { account, name, email, password, checkPassword } = req.body
-    // 使用req.flash會跳回signin
-    // if (password !== checkPassword) req.flash('error_messages', '密碼不相符!ヽ(#`Д´)ﾉ')
-    // if (name.length > 50) req.flash('error_messages', '字數超出上限ヽ(#`Д´)ﾉ')
+    if (!account.trim() || !name.trim() || !email.trim() || !password.trim() || !checkPassword.trim()) throw new Error('輸入項目不完整!')
     if (password !== checkPassword) throw new Error('密碼不相符!ヽ(#`Д´)ﾉ')
     if (name.length > 50) throw new Error('字數超出上限ヽ(#`Д´)ﾉ')
     //const { Op } = require('sequelize')
@@ -57,53 +55,64 @@ const userController = {
       .catch(err => next(err))
   },
   //註冊修改頁面驗證
-  putSetting: async (req, res, next) => {
-    try {
-      const { editAccount, editName, editEmail, editPassword, editCheckPassword } = req.body
-      const { id, account, email } = helpers.getUser(req)
+  putSetting: (req, res, next) => {
+    const loginUser = helpers.getUser(req)
+    const editUserId = req.params.id
+    const { editAccount, editName, editEmail, editPassword, editCheckPassword } = req.body
 
-      if (editPassword !== editCheckPassword) {
-        req.flash('error_messages', '密碼不相符!ヽ(#`Д´)ﾉ請重新輸入')
-        return res.redirect('back')
-      }
-      if (editName.length > 50) {
-        req.flash('error_messages', '字數超出上限ヽ(#`Д´)ﾉ字數要在50字以內')
-        return res.redirect('back')
-      }
-
-      if (editAccount === account) {
-        const exitAccount = await User.findOne({ where: { account } })
-        if (exitAccount) {
-          req.flash('error_messages', ' 帳號已重複註冊！')
-          return res.redirect('back')
-        }
-      }
-      if (editEmail === email) {
-        const exitEmail = await User.findOne({ where: { email } })
-        if (exitEmail) {
-          req.flash('error_messages', 'Email已重複註冊！')
-          return res.redirect('back')
-        }
-      }
-      const editUser = await User.findByPk(id)
-      await editUser.update({
-        account: editAccount,
-        name: editName,
-        email: editEmail,
-        password: await bcrypt.hash(editPassword, 10)
-      })
-      req.flash('success_messages', '成功更新！')
-      res.redirect('/tweets')
-    } catch (err) {
-      next(err)
+    if (loginUser.id.toString() !== editUserId.toString()) {
+      console.log(loginUser.id, editUserId)
+      req.flash('error_messages', '不可以改別人的資料!')
+      return res.redirect('back')
     }
+    if (!editAccount.trim() || !editName.trim() || !editEmail.trim() || !editPassword.trim() || !editCheckPassword.trim()) {
+      req.flash('error_messages', '輸入項目不完整!')
+      return res.redirect('back')
+    }
+    if (editPassword !== editCheckPassword) {
+      req.flash('error_messages', '密碼不相符!ヽ(#`Д´)ﾉ請重新輸入')
+      return res.redirect('back')
+    }
+    if (editName.length > 50) {
+      req.flash('error_messages', '字數超出上限ヽ(#`Д´)ﾉ字數要在50字以內')
+      return res.redirect('back')
+    }
+
+    Promise.all([
+      User.findOne({
+        where: {
+          [Op.and]: [{ account: editAccount }, { account: { [Op.notLike]: loginUser.account } }]
+        }
+      }),
+      User.findOne({
+        where: {
+          [Op.and]: [{ email: editEmail }, { email: { [Op.notLike]: loginUser.email } }]
+        }
+      }),
+      User.findByPk(editUserId)
+    ])
+      .then(([checkAccount, checkEmail, user]) => {
+        if (checkAccount) throw new Error("account 已重複註冊！")
+        if (checkEmail) throw new Error("email 已重複註冊！")
+        const hash = bcrypt.hashSync(editPassword, 10)
+        user.update({
+          account: editAccount,
+          name: editName,
+          email: editEmail,
+          password: hash
+        })
+        req.flash('success_messages', '成功更新！')
+        res.redirect('/tweets')
+      })
+      .catch(err => next(err))
   },
   getUserTweets: (req, res, next) => {
     const loginUserId = helpers.getUser(req).id
     const queryUserId = req.params.id
+    // [Category, { model: Comment, include: User }, { model: User, as: 'FavoritedUsers' }, { model: User, as: 'LikedUsers' }],
     return Promise.all([
       User.findByPk(queryUserId, {
-        include: Like,
+        include: [Like, { model: User, as: 'Followers' }],
         attributes: {
           include: [
             [sequelize.literal(`(SELECT COUNT(*) FROM Followships WHERE following_id = User.id)`), 'followerCount'],
@@ -134,13 +143,13 @@ const userController = {
       })
     ])
       .then(([user, tweets, users]) => {
-        const results = tweets.map(t => ({
-          ...t,
-          // isLiked: req.user.Likes.some(l => l.UserId === queryUserId)
-        }))
-        // console.log(results)
-        // console.log('user', user.Likes)
-        // console.log('tweets', tweets)
+        const currentUser = helpers.getUser(req)
+        const currentFollower = user.Followers.id
+        if (currentUser.id === currentFollower) {
+          user['isFollowed'] = true
+        } else {
+          user['isFollowed'] = false
+        }
         const result = users
           .map(user => ({
             ...user.toJSON(),
@@ -148,7 +157,7 @@ const userController = {
             isFollowed: helpers.getUser(req).Followings.some(f => f.id === user.id)
           }))
           .sort((a, b) => b.followCount - a.followCount)
-        res.render('user-tweets', { user, tweets, result })
+        res.render('user-tweets', { user, tweets, result, currentUser })
       })
       .catch(err => next(err))
   },
@@ -200,6 +209,7 @@ const userController = {
     const queryUserId = req.params.id
     return Promise.all([
       User.findByPk(queryUserId, {
+        include: [{ model: User, as: 'Followers' }],
         attributes: {
           include: [
             [sequelize.literal(`(SELECT COUNT(*) FROM Followships WHERE following_id = User.id)`), 'followerCount'],
@@ -223,6 +233,13 @@ const userController = {
       })
     ])
       .then(([user, replies, users]) => {
+        const currentUser = helpers.getUser(req)
+        const currentFollower = user.Followers.id
+        if (currentUser.id === currentFollower) {
+          user['isFollowed'] = true
+        } else {
+          user['isFollowed'] = false
+        }
         const result = users
           .map(user => ({
             ...user.toJSON(),
@@ -230,7 +247,7 @@ const userController = {
             isFollowed: helpers.getUser(req).Followings.some(f => f.id === user.id)
           }))
           .sort((a, b) => b.followCount - a.followCount)
-        res.render('user-replies', { user, replies, result })
+        res.render('user-replies', { user, replies, result, currentUser })
       })
       .catch(err => next(err))
   },
@@ -239,6 +256,7 @@ const userController = {
     const queryUserId = req.params.id
     return Promise.all([
       User.findByPk(queryUserId, {
+        include: [{ model: User, as: 'Followers' }],
         attributes: {
           include: [
             [sequelize.literal(`(SELECT COUNT(*) FROM Followships WHERE following_id = User.id)`), 'followerCount'],
@@ -261,7 +279,7 @@ const userController = {
               [sequelize.literal(`(SELECT (COUNT(*)>0) FROM Likes WHERE user_id = ${loginUserId} AND tweet_id = Tweet.id)`), 'isliked']
             ]
           }
-        }], order: [[Tweet, 'createdAt', 'DESC']],
+        }], order: [['createdAt', 'DESC']],
         nest: true,
         raw: true
       }),
@@ -271,6 +289,13 @@ const userController = {
       })
     ])
       .then(([user, likes, users]) => {
+        const currentUser = helpers.getUser(req)
+        const currentFollower = user.Followers.id
+        if (currentUser.id === currentFollower) {
+          user['isFollowed'] = true
+        } else {
+          user['isFollowed'] = false
+        }
         const result = users
           .map(user => ({
             ...user.toJSON(),
@@ -278,7 +303,7 @@ const userController = {
             isFollowed: helpers.getUser(req).Followings.some(f => f.id === user.id)
           }))
           .sort((a, b) => b.followCount - a.followCount)
-        res.render('user-likes', { user, likes, result })
+        res.render('user-likes', { user, likes, result, currentUser })
       })
       .catch(err => next(err))
   },

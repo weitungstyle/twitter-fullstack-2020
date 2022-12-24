@@ -24,21 +24,30 @@ const replyController = {
       include: { model: User, attributes: ['id', 'name', 'account', 'avatar'] },
       nest: true,
       raw: true
+    }),
+    User.findAll({
+      where: { role: 'user' },
+      include: [{ model: User, as: 'Followers' }]
     })
     ])
-      .then(([tweet, replies]) =>
-        res.render('replies', { tweet, replies })
-      )
+      .then(([tweet, replies, users]) => {
+        const result = users
+          .map(user => ({
+            ...user.toJSON(),
+            followCount: user.Followers.length,
+            isFollowed: helpers.getUser(req).Followings.some(f => f.id === user.id)
+          }))
+          .sort((a, b) => b.followCount - a.followCount)
+        res.render('replies', { tweet, replies, result })
+      })
       .catch(err => next(err))
   },
   postReplies: (req, res, next) => {
     const UserId = helpers.getUser(req).id
     const TweetId = req.params.id
     const comment = String(req.body.description)
-    // const commentCounts = Number('comment.length <=0')
-    // const commentOverCounts = Number('comment.length > 50')
 
-    if (comment.length <= 0) {
+    if (!comment.trim()) {
       req.flash('error_messages', '回覆不可以空白!')
       res.redirect('back')
     } else if (comment.length > 50) {
