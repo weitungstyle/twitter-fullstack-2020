@@ -61,7 +61,6 @@ const userController = {
     const { editAccount, editName, editEmail, editPassword, editCheckPassword } = req.body
 
     if (loginUser.id.toString() !== editUserId.toString()) {
-      console.log(loginUser.id, editUserId)
       req.flash('error_messages', '不可以改別人的資料!')
       return res.redirect('back')
     }
@@ -150,7 +149,6 @@ const userController = {
             isFollowed: helpers.getUser(req).Followings.some(f => f.id === user.id)
           }))
           .sort((a, b) => b.followCount - a.followCount)
-        console.log(tweets)
         res.render('user-tweets', { user, tweets, result: result.slice(0, 10), currentUser })
       })
       .catch(err => next(err))
