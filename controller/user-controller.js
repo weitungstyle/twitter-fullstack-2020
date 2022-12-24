@@ -124,7 +124,6 @@ const userController = {
         raw: true
       }),
       Tweet.findAll({
-        include: Like,
         attributes: {
           include: [
             [sequelize.literal(`(SELECT COUNT(*) FROM Replies WHERE tweet_id = Tweet.id)`), 'repliesCount'],
@@ -151,6 +150,7 @@ const userController = {
             isFollowed: helpers.getUser(req).Followings.some(f => f.id === user.id)
           }))
           .sort((a, b) => b.followCount - a.followCount)
+        console.log(tweets)
         res.render('user-tweets', { user, tweets, result: result.slice(0, 10), currentUser })
       })
       .catch(err => next(err))
