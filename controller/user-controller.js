@@ -109,7 +109,6 @@ const userController = {
   getUserTweets: (req, res, next) => {
     const loginUserId = helpers.getUser(req).id
     const queryUserId = req.params.id
-    // [Category, { model: Comment, include: User }, { model: User, as: 'FavoritedUsers' }, { model: User, as: 'LikedUsers' }],
     return Promise.all([
       User.findByPk(queryUserId, {
         include: [Like, { model: User, as: 'Followers' }],
@@ -139,7 +138,7 @@ const userController = {
       }),
       User.findAll({
         where: { role: 'user' },
-        include: [{ model: User, as: 'Followers' }]
+        include: [{ model: User, as: 'Followers' }, { model: User, as: 'Followings' }]
       })
     ])
       .then(([user, tweets, users]) => {
@@ -157,7 +156,7 @@ const userController = {
             isFollowed: helpers.getUser(req).Followings.some(f => f.id === user.id)
           }))
           .sort((a, b) => b.followCount - a.followCount)
-        res.render('user-tweets', { user, tweets, result, currentUser })
+        res.render('user-tweets', { user, tweets, result: result.slice(0, 10), currentUser })
       })
       .catch(err => next(err))
   },
