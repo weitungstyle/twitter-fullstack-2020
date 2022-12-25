@@ -47,7 +47,7 @@ const userController = {
 
   //註冊修改頁面
   getSetting: (req, res, next) => {
-    return User.findByPk(req.params.id, { raw: true })
+    return User.findByPk(helpers.getUser(req).id, { raw: true })
       .then(user => {
         if (!user) throw new Error("User didn't exist!")
         return res.render('setting', { user })
@@ -316,10 +316,11 @@ const userController = {
       })
     ])
       .then(([user, followings, users]) => {
-        const results = followings.map(f => ({
-          ...f,
-          isFollowed: true
-        }))
+        // const results = followings.map(f => ({
+        //   ...f,
+        //   isFollowed: true
+        // }))
+        console.log(followings)
         const result = users
           .map(user => ({
             ...user.toJSON(),
@@ -327,7 +328,7 @@ const userController = {
             isFollowed: helpers.getUser(req).Followings.some(f => f.id === user.id)
           }))
           .sort((a, b) => b.followCount - a.followCount)
-        res.render('following', { user, followings: results, result: result.slice(0, 10) })
+        res.render('following', { user, followings, result: result.slice(0, 10) })
       })
       .catch(err => next(err))
   },
@@ -386,6 +387,7 @@ const userController = {
       )
       .catch(err => next(err))
   },
+
 }
 
 
